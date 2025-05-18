@@ -1,0 +1,2 @@
+[*]
+dotnet_diagnostic.IDE0052.severity=suggestion

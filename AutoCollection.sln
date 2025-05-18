@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6BF95EC4-429B-4DBE-9909-EE7F38F79CAD}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.Props = src\Directory.Build.Props
+		src\.editorconfig = src\.editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B575DA4D-47FD-4C39-8044-BFA1FF3DC21F}"
+	ProjectSection(SolutionItems) = preProject
+		tests\.editorconfig = tests\.editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCollection", "src\AutoCollection\AutoCollection.csproj", "{D767A7E7-3301-4A9D-9BE8-50BA68776C13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCollection.VerifyTests", "tests\AutoCollection.VerifyTests\AutoCollection.VerifyTests.csproj", "{3218575C-E809-4103-A9E7-2194B1CB83C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCollection.UnitTests", "tests\AutoCollection.UnitTests\AutoCollection.UnitTests.csproj", "{ACA31BC5-66B0-4522-8830-4AF8ED24031B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{8FF3D3E4-A7E5-48E6-B189-5409362B6A6F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		Directory.Build.Props = Directory.Build.Props
+		global.json = global.json
+		StyleCop.json = StyleCop.json
+	EndProjectSection
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCollection.Build", "build\AutoCollection.Build.csproj", "{C6CDEA20-B0B6-429C-AE9D-F4AA0D3AFC91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{9D36A0E3-86FD-4142-8E5A-E88C5A97FFD4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D767A7E7-3301-4A9D-9BE8-50BA68776C13} = {6BF95EC4-429B-4DBE-9909-EE7F38F79CAD}
+		{ACA31BC5-66B0-4522-8830-4AF8ED24031B} = {B575DA4D-47FD-4C39-8044-BFA1FF3DC21F}
+		{3218575C-E809-4103-A9E7-2194B1CB83C8} = {B575DA4D-47FD-4C39-8044-BFA1FF3DC21F}
+		{C6CDEA20-B0B6-429C-AE9D-F4AA0D3AFC91} = {9D36A0E3-86FD-4142-8E5A-E88C5A97FFD4}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6CDEA20-B0B6-429C-AE9D-F4AA0D3AFC91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6CDEA20-B0B6-429C-AE9D-F4AA0D3AFC91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D767A7E7-3301-4A9D-9BE8-50BA68776C13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D767A7E7-3301-4A9D-9BE8-50BA68776C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D767A7E7-3301-4A9D-9BE8-50BA68776C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D767A7E7-3301-4A9D-9BE8-50BA68776C13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3218575C-E809-4103-A9E7-2194B1CB83C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3218575C-E809-4103-A9E7-2194B1CB83C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3218575C-E809-4103-A9E7-2194B1CB83C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3218575C-E809-4103-A9E7-2194B1CB83C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACA31BC5-66B0-4522-8830-4AF8ED24031B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACA31BC5-66B0-4522-8830-4AF8ED24031B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACA31BC5-66B0-4522-8830-4AF8ED24031B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACA31BC5-66B0-4522-8830-4AF8ED24031B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
