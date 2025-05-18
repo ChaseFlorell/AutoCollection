@@ -18,8 +18,6 @@ public interface IHaveConfiguration : INukeBuild
 
 	AbsolutePath BuildArtifactsDirectory => ArtifactsRootDirectory / "build";
 
-	AbsolutePath TestArtifactsDirectory => ArtifactsRootDirectory / "test";
-
 	AbsolutePath PublishDirectory => ArtifactsRootDirectory / "publish";
 
 	public AbsolutePath NugetDirectory => RootDirectory / ".nuget" / "packages";

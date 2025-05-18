@@ -15,8 +15,9 @@ namespace AutoCollection.Build;
                CacheKeyFiles = ["**/global.json", "**/Directory.Packages.props",])]
 class Build
 	: NukeBuild,
+	  ICanInitialize,
 	  ICanBuild,
-	  ICanInitialize
+	  ICanTest
 {
 	public Build()
 	{
@@ -44,7 +45,8 @@ class Build
 		target => target
 		          .Description("Build Solution")
 		          .DependsOn<ICanInitialize>(static x => x.Initialize)
-		          .DependsOn<ICanBuild>(static x => x.Build);
+		          .DependsOn<ICanBuild>(static x => x.Build)
+		          .DependsOn<ICanTest>(static x => x.Test);
 
 	private static void TriggerAssemblyResolution() => _ = new ProjectCollection();
 }
