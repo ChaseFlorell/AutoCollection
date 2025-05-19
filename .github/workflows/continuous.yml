@@ -16,7 +16,7 @@
 
 name: continuous
 
-on: [pull_request]
+on: [push]
 
 jobs:
   macos-latest:
@@ -31,8 +31,8 @@ jobs:
             .nuke/temp
             ~/.nuget/packages
           key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/Directory.Packages.props') }}
-      - name: 'Run: Test'
-        run: ./build.cmd Test
+      - name: 'Run: Publish'
+        run: ./build.cmd Publish
         env:
           NugetApiKey: ${{ secrets.NUGET_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
