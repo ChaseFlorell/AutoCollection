@@ -20,5 +20,5 @@ public interface ICanCompile : IHaveConfiguration
 			                                      .SetOutputDirectory(BuildArtifactsDirectory)
 			                                      .SetConfiguration(Configuration)));
 
-	private static readonly string __todaysBuild = $"{DateTime.Today:yyyy.MM.dd}.{GitHubActions.Instance?.RunId ?? 0}";
+	private static readonly string __todaysBuild = $"{DateTime.Today:yyyy.MM.dd}.{GitHubActions.Instance?.RunNumber ?? 0}";
 }
