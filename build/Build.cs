@@ -9,7 +9,7 @@ namespace AutoCollection.Build;
 [GitHubActions("continuous",
                GitHubActionsImage.MacOsLatest,
                On = [GitHubActionsTrigger.Push,],
-               InvokedTargets = [nameof(ICanTest.Test),],
+               InvokedTargets = [nameof(ICanPublish.Publish),],
                CacheKeyFiles = ["**/global.json", "**/Directory.Packages.props",],
                ImportSecrets = [nameof(NugetApiKey),])]
 class Build
