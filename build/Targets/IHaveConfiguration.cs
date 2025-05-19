@@ -27,5 +27,5 @@ public interface IHaveConfiguration : INukeBuild
 
 	AbsolutePath SourceDirectory => RootDirectory / "src";
 
-	string Version => $"0.0.0.{GitHubActions.Instance?.JobId ?? 1}";
+	string Version => $"0.0.0.{GitHubActions.Instance?.RunId ?? 1}";
 }
