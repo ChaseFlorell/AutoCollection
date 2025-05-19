@@ -13,6 +13,7 @@
 		<SourceGenerator_EnableDebug>False</SourceGenerator_EnableDebug>
 		<SourceGenerator_DetailedLog>True</SourceGenerator_DetailedLog>
 		<SourceGenerator_IntellisenseFix>True</SourceGenerator_IntellisenseFix>
+		<EnableNETAnalyzers>True</EnableNETAnalyzers>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -29,7 +30,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>git@github.com:ChaseFlorell/AutoCollection.git</RepositoryUrl>
-		<PackageProjectUrl>https://github.com/codecentric/net_automatic_interface</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/ChaseFlorell/AutoCollection</PackageProjectUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -37,6 +38,7 @@
 			Pack="true"
 			PackagePath="\"
 			Condition="Exists('$(SolutionDir)\readme.md')" />
+		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 	</ItemGroup>
 
 	<ItemGroup>
