@@ -11,7 +11,8 @@ namespace AutoCollection.Build;
                On = [GitHubActionsTrigger.Push,],
                InvokedTargets = [nameof(ICanPublish.Publish),],
                CacheKeyFiles = ["**/global.json", "**/Directory.Packages.props",],
-               ImportSecrets = [nameof(NugetApiKey), nameof(GitHubToken)])]
+               ImportSecrets = [nameof(NugetApiKey)],
+               EnableGitHubToken = true)]
 class Build
 	: NukeBuild,
 	  ICanInitialize,
@@ -26,8 +27,6 @@ class Build
 	[GitRepository] public GitRepository? Repository { get; }
 
 	[Parameter] [Secret] public string? NugetApiKey { get; }
-
-	[Parameter] [Secret] public string? GitHubToken { get; }
 
 	public static int Main() => Execute<Build>(x => x.Run);
 

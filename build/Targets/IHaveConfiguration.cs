@@ -14,7 +14,6 @@ public interface IHaveConfiguration : INukeBuild
 	[GitRepository] GitRepository? Repository { get; }
 
 	[Parameter] [Secret] string? NugetApiKey { get; }
-	[Parameter][Secret]string? GitHubToken { get; }
 
 	AbsolutePath ArtifactsRootDirectory => RootDirectory / "artifacts";
 
