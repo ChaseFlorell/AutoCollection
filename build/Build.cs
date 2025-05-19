@@ -1,5 +1,4 @@
 using AutoCollection.Build.Targets;
-using Microsoft.Build.Evaluation;
 using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Git;
