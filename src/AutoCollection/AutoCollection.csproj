@@ -24,13 +24,17 @@
 		<Authors>Chase Florell</Authors>
 		<Company>FloMedia Group Inc.</Company>
 		<Copyright>FloMedia Group Inc</Copyright>
-		<PackageReadmeFile>../readme.md</PackageReadmeFile>
+		<PackageReadmeFile>$(MSBuildProjectDirectory)\readme.md</PackageReadmeFile>
 		<Description>Source Generation to create Collection types</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>git@github.com:ChaseFlorell/AutoCollection.git</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/codecentric/net_automatic_interface</PackageProjectUrl>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="$(MSBuildProjectDirectory)\readme.md" Pack="true" PackagePath="\" Condition="Exists('$(MSBuildProjectDirectory)\readme.md')" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
