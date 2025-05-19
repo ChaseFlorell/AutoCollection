@@ -13,6 +13,6 @@ public interface ICanPublish : IHaveConfiguration
 		     .WhenSkipped(DependencyBehavior.Skip)
 		     .Executes(() => DotNetTasks.DotNetNuGetPush(cfg => cfg
 		                                                        .SetApiKey(NugetApiKey)
-		                                                        .SetSymbolSource(PublishDirectory / "*.snupkg")
-		                                                        .SetSource(PublishDirectory / "*.nupkg")));
+		                                                        .SetTargetPath(PublishDirectory / "*.nupkg")
+		                                                        .SetSymbolSource(PublishDirectory / "*.snupkg")));
 }
