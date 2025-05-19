@@ -16,12 +16,31 @@ internal static class RegisterAttributesExtensions
 			                   #nullable enable
 			                   {{{Constants.AUTO_GENERATED_MESSAGE}}}
 			                   using System;
+			                   using System.Collections.Generic;
 
 			                   namespace {{{namespaceName}}}
 			                   {
 			                       /// <summary>
-			                       /// Use source generator to automatically wire up a collection
+			                       /// When you decorate a partial class with this attribute,
+			                       /// Roslyn will autogenerate an <see cref="IReadOnlyList{T}" />
+			                       /// implementation for your class
 			                       /// </summary>
+			                       /// <example>
+			                       /// <code>
+			                       /// [[attributeName(typeof(string))]]
+			                       /// public partial class MyStringCollection;
+			                       /// </code>
+			                       /// </example>
+			                       /// <example>
+			                       /// <code>
+			                       /// [[attributeName(typeof(Thing), nameof(_things))]]
+			                       /// public partial class MyThingCollection(IEnumerable&lt;Thing&gt; things)
+			                       /// {
+			                       ///     private readonly IReadOnlyList&lt;Thing&gt; _things = things.ToArray();
+			                       /// }
+			                       /// </code>
+			                       /// </example>
+			                       /// <returns>A boilerplate implementation of <see cref="IReadOnlyList{T}" /></returns>
 			                       [AttributeUsage(AttributeTargets.Class, Inherited = false)]
 			                       internal sealed class {{{attributeName}}} : Attribute
 			                       {
