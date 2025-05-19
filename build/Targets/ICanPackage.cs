@@ -15,6 +15,6 @@ public interface ICanPublish : IHaveConfiguration
 		     .Executes(() => DotNetTasks.DotNetNuGetPush(cfg => cfg
 		                                                        .SetApiKey(NugetApiKey)
 		                                                        .SetSource("https://api.nuget.org/v3/index.json")
-		                                                        .SetTargetPath(PublishDirectory / $"AutoCollection.{Version}.nupkg")
-		                                                        .SetSymbolSource(PublishDirectory / $"AutoCollection.{Version}.snupkg")));
+		                                                        .SetTargetPath(BuildArtifactsDirectory / $"AutoCollection.{Version}.nupkg")
+		                                                        .SetSymbolSource(BuildArtifactsDirectory / $"AutoCollection.{Version}.snupkg")));
 }
