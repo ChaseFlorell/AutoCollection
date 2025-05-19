@@ -24,7 +24,7 @@
 		<Authors>Chase Florell</Authors>
 		<Company>FloMedia Group Inc.</Company>
 		<Copyright>FloMedia Group Inc</Copyright>
-		<PackageReadmeFile>$(MSBuildProjectDirectory)\readme.md</PackageReadmeFile>
+		<PackageReadmeFile>$(MSBuildProjectDirectory)\..\..\readme.md</PackageReadmeFile>
 		<Description>Source Generation to create Collection types</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryType>git</RepositoryType>
@@ -33,7 +33,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="$(MSBuildProjectDirectory)\readme.md" Pack="true" PackagePath="\" Condition="Exists('$(MSBuildProjectDirectory)\readme.md')" />
+		<None Include="$(MSBuildProjectDirectory)\..\..\readme.md"
+			Pack="true"
+			PackagePath="\"
+			Condition="Exists('$(MSBuildProjectDirectory)\..\..\readme.md')" />
 	</ItemGroup>
 
 	<ItemGroup>
