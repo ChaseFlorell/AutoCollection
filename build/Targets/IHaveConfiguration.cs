@@ -1,6 +1,7 @@
 using System;
 using Nuke.Common;
 using Nuke.Common.CI.AzurePipelines;
+using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
@@ -13,7 +14,8 @@ public interface IHaveConfiguration : INukeBuild
 	[Solution] Solution? Solution { get; }
 
 	[GitRepository] GitRepository? Repository { get; }
-	[Parameter][Secret] string? NugetApiKey { get; }
+
+	[Parameter] [Secret] string? NugetApiKey { get; }
 
 	AbsolutePath ArtifactsRootDirectory => RootDirectory / "artifacts";
 
@@ -27,7 +29,7 @@ public interface IHaveConfiguration : INukeBuild
 
 	AbsolutePath SourceDirectory => RootDirectory / "src";
 
-	string Version => $"{DateTime.Today:yyyy}.{Quarter}.{AzurePipelines.Instance?.BuildId ?? 0}";
+	string Version => $"0.0.0.{GitHubActions.Instance?.JobId ?? 1}";
 
 	int Quarter => (DateTime.Today.Month + 2) / 3;
 }
