@@ -24,7 +24,7 @@
 		<Authors>Chase Florell</Authors>
 		<Company>FloMedia Group Inc.</Company>
 		<Copyright>FloMedia Group Inc</Copyright>
-		<PackageReadmeFile>$(SolutionDir)/README.md</PackageReadmeFile>
+		<PackageReadmeFile>$(SolutionDir)readme.md</PackageReadmeFile>
 		<Description>Source Generation to create Collection types</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryType>git</RepositoryType>
