@@ -10,7 +10,7 @@ public interface ICanTest : IHaveConfiguration
 		target =>
 			target
 				.Description("Execute Unit Tests")
-				.DependsOn<ICanBuild>(static x => x.Build)
+				.DependsOn<ICanCompile>(static x => x.Compile)
 				.ProceedAfterFailure()
 				.Executes(() => DotNetTasks
 					          .DotNetTest(c => c

@@ -33,6 +33,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCollection.Build", "bui
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{9D36A0E3-86FD-4142-8E5A-E88C5A97FFD4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{A532FF2F-E216-4C35-B6A9-3FF6F0D92910}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{33B80364-B76C-4C12-BBB4-20930388E709}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\continuous.yml = .github\workflows\continuous.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +50,8 @@ Global
 		{ACA31BC5-66B0-4522-8830-4AF8ED24031B} = {B575DA4D-47FD-4C39-8044-BFA1FF3DC21F}
 		{3218575C-E809-4103-A9E7-2194B1CB83C8} = {B575DA4D-47FD-4C39-8044-BFA1FF3DC21F}
 		{C6CDEA20-B0B6-429C-AE9D-F4AA0D3AFC91} = {9D36A0E3-86FD-4142-8E5A-E88C5A97FFD4}
+		{A532FF2F-E216-4C35-B6A9-3FF6F0D92910} = {8FF3D3E4-A7E5-48E6-B189-5409362B6A6F}
+		{33B80364-B76C-4C12-BBB4-20930388E709} = {A532FF2F-E216-4C35-B6A9-3FF6F0D92910}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C6CDEA20-B0B6-429C-AE9D-F4AA0D3AFC91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

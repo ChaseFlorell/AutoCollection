@@ -24,8 +24,9 @@
     "ExecutableTarget": {
       "type": "string",
       "enum": [
-        "Build",
+        "Compile",
         "Initialize",
+        "Publish",
         "Run",
         "Test"
       ]
@@ -108,6 +109,10 @@
             "Debug",
             "Release"
           ]
+        },
+        "NugetApiKey": {
+          "type": "string",
+          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
         },
         "Solution": {
           "type": "string",

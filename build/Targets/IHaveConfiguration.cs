@@ -13,6 +13,7 @@ public interface IHaveConfiguration : INukeBuild
 	[Solution] Solution? Solution { get; }
 
 	[GitRepository] GitRepository? Repository { get; }
+	[Parameter][Secret] string? NugetApiKey { get; }
 
 	AbsolutePath ArtifactsRootDirectory => RootDirectory / "artifacts";
 

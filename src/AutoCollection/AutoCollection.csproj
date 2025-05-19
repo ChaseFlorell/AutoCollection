@@ -3,16 +3,26 @@
 	<PropertyGroup>
 		<TargetFramework>net9.0</TargetFramework>
 		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-		<IsPackable>false</IsPackable>
+		<IsPackable>true</IsPackable>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<IsRoslynComponent>true</IsRoslynComponent>
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
-		<PackageId>AutoCollection</PackageId>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<SourceGenerator_EnableLogging>True</SourceGenerator_EnableLogging>
 		<SourceGenerator_EnableDebug>False</SourceGenerator_EnableDebug>
 		<SourceGenerator_DetailedLog>True</SourceGenerator_DetailedLog>
 		<SourceGenerator_IntellisenseFix>True</SourceGenerator_IntellisenseFix>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>AutoCollection</PackageId>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageTags>Source Generator;Collection;List</PackageTags>
+		<Version>0.0.0.1</Version>
+		<Authors>Chase Florell</Authors>
+		<Company>FloMedia Group Inc.</Company>
 	</PropertyGroup>
 
 	<ItemGroup>
