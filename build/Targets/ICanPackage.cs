@@ -13,6 +13,7 @@ public interface ICanPublish : IHaveConfiguration
 		     .WhenSkipped(DependencyBehavior.Skip)
 		     .Executes(() => DotNetTasks.DotNetNuGetPush(cfg => cfg
 		                                                        .SetApiKey(NugetApiKey)
+		                                                        .SetSource("https://api.nuget.org/v3/index.json")
 		                                                        .SetTargetPath(PublishDirectory / "*.nupkg")
 		                                                        .SetSymbolSource(PublishDirectory / "*.snupkg")));
 }
