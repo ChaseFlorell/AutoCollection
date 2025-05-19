@@ -8,6 +8,13 @@ using Nuke.Common.ProjectModel;
 namespace AutoCollection.Build;
 [GitHubActions("continuous",
                GitHubActionsImage.MacOsLatest,
+               On = [GitHubActionsTrigger.PullRequest,],
+               InvokedTargets = [nameof(ICanTest.Test),],
+               CacheKeyFiles = ["**/global.json", "**/Directory.Packages.props",],
+               ImportSecrets = [nameof(NugetApiKey)],
+               EnableGitHubToken = true)]
+[GitHubActions("main",
+               GitHubActionsImage.MacOsLatest,
                On = [GitHubActionsTrigger.Push,],
                InvokedTargets = [nameof(ICanPublish.Publish),],
                CacheKeyFiles = ["**/global.json", "**/Directory.Packages.props",],
