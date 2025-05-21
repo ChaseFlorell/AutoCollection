@@ -43,7 +43,8 @@ public interface ICanCompile : IHaveConfiguration
 				                                                     .SetVersion(Version)
 				                                                     .SetInformationalVersion(Version)
 				                                                     .SetOutputDirectory(BuildArtifactsDirectory / project.Name)
-				                                                     .SetConfiguration(Configuration))));
+				                                                     .SetConfiguration(Configuration)
+				                                                     .SetProperty("ContinuousIntegrationBuild", true))));
 
 	private static readonly string __today = $"{DateTime.Today:yyyy.MM.dd}.{GitHubActions.Instance?.RunNumber ?? 0}";
 }
