@@ -14,6 +14,19 @@
 		<SourceGenerator_DetailedLog>True</SourceGenerator_DetailedLog>
 		<SourceGenerator_IntellisenseFix>True</SourceGenerator_IntellisenseFix>
 		<EnableNETAnalyzers>True</EnableNETAnalyzers>
+
+		<!-- Enable deterministic builds -->
+		<Deterministic>true</Deterministic>
+		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+
+		<!-- Enable Source Link -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<DebugType>embedded</DebugType>
+
+		<!-- Enable compiler flags -->
+		<PathMap>$(MSBuildProjectDirectory)=$(MSBuildProjectName)</PathMap>
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -30,7 +43,7 @@
 		<Description>Source Generation to create Collection types</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>git@github.com:ChaseFlorell/AutoCollection.git</RepositoryUrl>
+		<RepositoryUrl>https://github.com/ChaseFlorell/AutoCollection.git</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/ChaseFlorell/AutoCollection</PackageProjectUrl>
 	</PropertyGroup>
 
@@ -38,7 +51,6 @@
 		<None Include="..\..\readme.md" Pack="true" PackagePath="\" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
 		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="lib/netstandard2.0" Visible="false" />
-
 	</ItemGroup>
 
 	<ItemGroup>
@@ -46,6 +58,11 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<!-- Add Source Link support -->
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
 
