@@ -66,12 +66,6 @@ public interface IHaveConfiguration : INukeBuild
     AbsolutePath TestResultsDirectory => ArtifactsRootDirectory / "test-results";
 
     /// <summary>
-    /// Gets the directory containing source code.
-    /// Located at RootDirectory/src.
-    /// </summary>
-    AbsolutePath SourceDirectory => RootDirectory / "src";
-
-    /// <summary>
     /// Gets the version string in the format "0.0.0.X" where X is the GitHub Actions run number
     /// or 1 if not running in GitHub Actions.
     /// </summary>
