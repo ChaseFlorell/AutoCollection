@@ -38,6 +38,7 @@ public interface ICanPublish : IHaveConfiguration
 		d => d
 		     .Description("Publish Nuget")
 		     .DependsOn<ICanTest>(x => x.Test)
+		     .DependsOn<ICanInspectCode>(x => x.Inspect)
 		     .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
 		     .WhenSkipped(DependencyBehavior.Skip)
 		     .Executes(() => DotNetTasks.DotNetNuGetPush(cfg => cfg
