@@ -8,7 +8,7 @@ namespace AutoCollection.Build.Targets;
 public interface ICanPublish : IHaveConfiguration
 {
 	Target Publish =>
-		d => d
+		target => target
 			.Description("Publish Nuget")
 			.DependsOn<ICanTest>(x => x.Test)
 			.OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is { })
