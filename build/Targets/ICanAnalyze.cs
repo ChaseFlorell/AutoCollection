@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using Nuke.Common;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
@@ -38,7 +36,6 @@ public interface ICanInspectCode : IHaveConfiguration
 	Target Inspect =>
 		target => target
 		          .Description("Runs ReSharper InspectCode using EditorConfig")
-		          .DependsOn<ICanCompile>(static x => x.Compile)
 		          .DependsOn<ICanInspectCode>(static x => x.InstallTools)
 		          .Executes(() =>
 		          {

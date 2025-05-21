@@ -19,6 +19,13 @@ namespace AutoCollection.Build;
 	CacheKeyFiles = ["**/global.json", "**/Directory.Packages.props",],
 	ImportSecrets = [nameof(NugetApiKey)],
 	EnableGitHubToken = true)]
+[GitHubActions("inspect code",
+               GitHubActionsImage.MacOsLatest,
+               On = [GitHubActionsTrigger.Push,],
+               InvokedTargets = [nameof(ICanInspectCode.Inspect),],
+               CacheKeyFiles = ["**/global.json", "**/Directory.Packages.props",],
+               ImportSecrets = [nameof(NugetApiKey)],
+               EnableGitHubToken = true)]
 internal class Build
 	: NukeBuild,
 		ICanInitialize,
