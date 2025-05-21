@@ -4,7 +4,8 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<EmbeddedFiles Include="$(GeneratedAssemblyInfoFile)"/>
-		<EmbeddedFiles Include="$(GeneratedGlobalUsingsFile)"/>
+		<!-- include this if you use global usings -->
+		<!--<EmbeddedFiles Include="$(GeneratedGlobalUsingsFile)"/>-->
 		<EmbeddedFiles Include="$(TargetFrameworkMonikerAssemblyAttributesPath)"/>
 	</ItemGroup>
 </Project>
