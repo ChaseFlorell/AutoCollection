@@ -75,5 +75,5 @@ public interface IHaveConfiguration : INukeBuild
     /// Gets the version string in the format "0.0.0.X" where X is the GitHub Actions run number
     /// or 1 if not running in GitHub Actions.
     /// </summary>
-    string Version => $"0.0.0.{GitHubActions.Instance?.RunNumber ?? 1}";
+    string Version => $"0.0.{GitHubActions.Instance?.RunNumber ?? 1}";
 }
