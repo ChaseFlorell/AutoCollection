@@ -47,6 +47,18 @@ dotnet_naming_symbols.private_constants_symbols.required_modifiers = const
 dotnet_naming_symbols.unity_serialized_field_symbols.applicable_accessibilities = *
 dotnet_naming_symbols.unity_serialized_field_symbols.applicable_kinds =
 
+# EditorConfig rule for private static readonly fields
+dotnet_naming_rule.private_static_readonly_fields.severity = error
+dotnet_naming_rule.private_static_readonly_fields.symbols = private_static_readonly_fields
+dotnet_naming_rule.private_static_readonly_fields.style = double_underscore_camel_case_style
+
+dotnet_naming_symbols.private_static_readonly_fields.applicable_kinds = field
+dotnet_naming_symbols.private_static_readonly_fields.applicable_accessibilities = private
+dotnet_naming_symbols.private_static_readonly_fields.required_modifiers = static, readonly
+
+dotnet_naming_style.double_underscore_camel_case_style.required_prefix = __
+dotnet_naming_style.double_underscore_camel_case_style.capitalization = camel_case
+
 dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary:none
 dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:none
 dotnet_style_parentheses_in_relational_binary_operators = never_if_unnecessary:none
