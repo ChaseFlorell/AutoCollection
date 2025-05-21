@@ -7,7 +7,7 @@ namespace AutoCollection.VerifyTests;
 public class ReadOnlyListGeneratorTests
 {
 	[Fact]
-	public async Task GeneratesInternalReadOnlyListWithDefaultBackingField()
+	public async Task GivenReadOnlyList_WhenInternal_ThenGeneratesReadOnlyListWithDefaultBackingField()
 	{
 		const string CODE = """
 		                    using AutoCollection;
@@ -23,7 +23,7 @@ public class ReadOnlyListGeneratorTests
 	}
 
 	[Fact]
-	public async Task GeneratesReadOnlyListWithDefaultBackingField()
+	public async Task GivenReadOnlyList_WhenNoBackingFieldProvided_ThenGeneratesReadOnlyListWithDefaultBackingField()
 	{
 		const string CODE = """
 		                    using AutoCollection;
@@ -39,7 +39,7 @@ public class ReadOnlyListGeneratorTests
 	}
 
 	[Fact]
-	public async Task GeneratesReadOnlyListWithCustomBackingField()
+	public async Task GivenReadOnlyList_WhenBackingFieldSupplied_ThenGeneratesReadOnlyListWithCustomBackingField()
 	{
 		const string CODE = """
 		                    using AutoCollection;
@@ -61,7 +61,7 @@ public class ReadOnlyListGeneratorTests
 	}
 
 	[Fact]
-	public async Task GeneratesReadOnlyListWithComplexType()
+	public async Task GivenReadOnlyList_WhenComplexObjectSupplied_ThenGeneratesReadOnlyListWithComplexType()
 	{
 		const string CODE = """
 		                    using AutoCollection;
