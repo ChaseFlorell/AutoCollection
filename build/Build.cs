@@ -24,7 +24,8 @@ internal class Build
 		ICanInitialize,
 		ICanCompile,
 		ICanTest,
-		ICanPublish
+		ICanPublish,
+		ICanInspectCode
 {
 	[Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")] public Configuration Configuration { get; set; } = Configuration.Release;
 
