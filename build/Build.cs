@@ -19,7 +19,7 @@ namespace AutoCollection.Build;
 	CacheKeyFiles = ["**/global.json", "**/Directory.Packages.props",],
 	ImportSecrets = [nameof(NugetApiKey)],
 	EnableGitHubToken = true)]
-class Build
+internal class Build
 	: NukeBuild,
 		ICanInitialize,
 		ICanCompile,
