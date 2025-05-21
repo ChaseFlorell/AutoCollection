@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{8FF3D3E4-A
 		Directory.Build.Props = Directory.Build.Props
 		global.json = global.json
 		readme.md = readme.md
+		directory.Build.Targets = directory.Build.Targets
 	EndProjectSection
 EndProject
 

@@ -16,8 +16,8 @@
 		<EnableNETAnalyzers>True</EnableNETAnalyzers>
 
 		<!-- Enable deterministic builds -->
+		<!-- note: nuke ICanCompile sets ContinuousIntegrationBuild:true -->
 		<Deterministic>true</Deterministic>
-		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
 
 		<!-- Enable Source Link -->
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
