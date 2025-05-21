@@ -4,7 +4,7 @@ using Nuke.Common.Tools.DotNet;
 
 namespace AutoCollection.Build.Targets;
 /// <summary>
-/// Represents a capability to analyze code using specific tools or configurations.
+/// Represents an ability to analyze code using specific tools or configurations.
 /// </summary>
 public interface ICanInspectCode : IHaveConfiguration
 {
@@ -12,7 +12,7 @@ public interface ICanInspectCode : IHaveConfiguration
 	/// Represents a target that installs required .NET tools necessary for the build process.
 	/// </summary>
 	/// <remarks>
-	/// This target ensures that all specified .NET tools are installed and configured prior to executing
+	/// This target ensures that all specified .NET tools are installed and configured before executing
 	/// other dependent targets. It is commonly executed before inspection or compilation tasks.
 	/// </remarks>
 	Target InstallTools =>
