@@ -18,8 +18,4 @@
 		<PackageReference Include="Nuke.Common" Version="9.0.4" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<PackageDownload Include="sign" Version="[0.9.1-beta.25264.1]" />
-	</ItemGroup>
-
 </Project>

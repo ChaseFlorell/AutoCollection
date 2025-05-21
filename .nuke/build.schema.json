@@ -26,6 +26,8 @@
       "enum": [
         "Compile",
         "Initialize",
+        "Inspect",
+        "InstallTools",
         "Publish",
         "Run",
         "Test"

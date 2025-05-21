@@ -4,7 +4,7 @@ using VerifyXunit;
 using Xunit;
 
 namespace AutoCollection.VerifyTests;
-public class ReadOnlyListGeneratorTests
+public sealed class ReadOnlyListGeneratorTests
 {
 	[Fact]
 	public async Task GivenReadOnlyList_WhenInternal_ThenGeneratesReadOnlyListWithDefaultBackingField()
