@@ -4,7 +4,7 @@ using Nuke.Common.Git;
 using Nuke.Common.Tools.DotNet;
 
 namespace AutoCollection.Build.Targets;
-
+/// <inheritdoc />
 /// <summary>
 /// The <c>ICanPublish</c> interface is responsible for managing the publish process, particularly
 /// for publishing packages to a NuGet repository.
@@ -36,13 +36,13 @@ public interface ICanPublish : IHaveConfiguration
 	/// </remarks>
 	Target Publish =>
 		d => d
-			.Description("Publish Nuget")
-			.DependsOn<ICanTest>(x => x.Test)
-			.OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is { })
-			.WhenSkipped(DependencyBehavior.Skip)
-			.Executes(() => DotNetTasks.DotNetNuGetPush(cfg => cfg
-				.SetApiKey(NugetApiKey)
-				.SetSource("https://api.nuget.org/v3/index.json")
-				.SetTargetPath(BuildArtifactsDirectory / "AutoCollection" / $"AutoCollection.{Version}.nupkg")
-				.SetSymbolSource(BuildArtifactsDirectory / "AutoCollection" / $"AutoCollection.{Version}.snupkg")));
+		     .Description("Publish Nuget")
+		     .DependsOn<ICanTest>(x => x.Test)
+		     .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
+		     .WhenSkipped(DependencyBehavior.Skip)
+		     .Executes(() => DotNetTasks.DotNetNuGetPush(cfg => cfg
+		                                                        .SetApiKey(NugetApiKey)
+		                                                        .SetSource("https://api.nuget.org/v3/index.json")
+		                                                        .SetTargetPath(BuildArtifactsDirectory / "AutoCollection" / $"AutoCollection.{Version}.nupkg")
+		                                                        .SetSymbolSource(BuildArtifactsDirectory / "AutoCollection" / $"AutoCollection.{Version}.snupkg")));
 }
