@@ -5,6 +5,7 @@
 		<OutputType>Exe</OutputType>
 		<EnableGenerateDocumentationFile>true</EnableGenerateDocumentationFile>
 		<NoWarn>CS0649;CS0169;CA1050;CA1822;CA2211;IDE1006</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NukeRootDirectory>..</NukeRootDirectory>
 		<NukeScriptDirectory>..</NukeScriptDirectory>
 		<NukeTelemetryVersion>1</NukeTelemetryVersion>

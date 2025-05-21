@@ -5,7 +5,6 @@
 		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 		<IsPackable>true</IsPackable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IsRoslynComponent>true</IsRoslynComponent>
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<DevelopmentDependency>true</DevelopmentDependency>
@@ -36,9 +35,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Include="..\..\readme.md" Pack="true" PackagePath="\" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+		<None Include="..\..\readme.md" Pack="true" PackagePath="\" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
 		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="lib/netstandard2.0" Visible="false" />
+
 	</ItemGroup>
 
 	<ItemGroup>

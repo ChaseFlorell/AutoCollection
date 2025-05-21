@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AutoCollection;
+/// <inheritdoc />
 /// <summary>
 ///     A sample source generator that creates a custom report based on class properties. The target class should be annotated with the 'Generators.ReportAttribute' attribute.
 ///     When using the source code as a baseline, an incremental source generator is preferable because it reduces the performance overhead.
@@ -43,11 +44,7 @@ public sealed class AutoCollectionGenerator : IIncrementalGenerator
 				? $"${Guid.NewGuid()}"
 				: $"{type.ContainingNamespace}";
 
-			var code = Builder.BuildReadOnlyList(type);
-			var hintName = $"{typeNamespace}.{type.Name}";
-			context.AddSource(
-			                  hintName,
-			                  code);
+			context.AddSource($"{typeNamespace}.{type.Name}", Builder.BuildReadOnlyList(type));
 		}
 	}
 }

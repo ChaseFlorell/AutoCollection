@@ -22,4 +22,10 @@
 	<ItemGroup Label="">
 		<ProjectReference Include="..\..\src\AutoCollection\AutoCollection.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="ReadOnlyListGeneratorTests.GivenReadOnlyList_WhenBackingFieldSupplied_ThenGeneratesReadOnlyListWithCustomBackingField.received.txt">
+	    <DependentUpon>ReadOnlyListGeneratorTests.cs</DependentUpon>
+	  </None>
+	</ItemGroup>
 </Project>

@@ -44,7 +44,12 @@ public static class Infrastructure
 			.Where(d => d.Severity == DiagnosticSeverity.Error)
 			.ShouldBeEmpty();
 
-		var result = outputCompilation.SyntaxTrees.Skip(1).Last().ToString();
+		if(outputCompilation.SyntaxTrees.Count() <= 2)
+		{
+			return " ";
+		}
+
+		var result = outputCompilation.SyntaxTrees.Skip(2).Last().ToString();
 		return result;
 	}
 }
