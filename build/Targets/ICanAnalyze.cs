@@ -37,13 +37,9 @@ public interface ICanInspectCode : IHaveConfiguration
 		target => target
 		          .Description("Runs ReSharper InspectCode using EditorConfig")
 		          .DependsOn<ICanInspectCode>(static x => x.InstallTools)
-		          .Executes(() =>
-		          {
-			          var outputPath = ArtifactsRootDirectory / "resharper-report.sarif";
-
-			          ProcessTasks.StartProcess("jb",
-			                                    $"inspectcode {Solution} --output={outputPath} --severity=WARNING --format=Sarif --properties:Configuration={Configuration} --disable-settings-layers=SolutionPersonal --no-buildin-settings --no-build",
-			                                    workingDirectory: RootDirectory)
-			                      .AssertZeroExitCode();
-		          });
+		          .Executes(() => ProcessTasks
+		                          .StartProcess("jb",
+		                                        $"inspectcode {Solution} --output={InspectionResults} --severity=WARNING --format=Sarif --properties:Configuration={Configuration} --disable-settings-layers=SolutionPersonal --no-buildin-settings --no-build",
+		                                        workingDirectory: RootDirectory)
+		                          .AssertZeroExitCode());
 }
