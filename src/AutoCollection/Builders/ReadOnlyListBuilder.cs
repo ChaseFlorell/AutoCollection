@@ -1,13 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using System.Linq;
 
-namespace AutoCollection;
-internal static class Builder
+namespace AutoCollection.Builders;
+internal static class ReadOnlyListBuilder
 {
-	public static string BuildReadOnlyList(ITypeSymbol type)
+	public static string Build(ITypeSymbol type)
 	{
 		var generationAttribute = type
 		                          .GetAttributes()
