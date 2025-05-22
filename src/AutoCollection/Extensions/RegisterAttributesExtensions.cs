@@ -26,14 +26,14 @@ internal static class RegisterAttributesExtensions
 			                       /// implementation for your class
 			                       /// </summary>
 			                       /// <example>
-			                       /// <code>
-			                       /// [[attributeName(typeof(string))]]
+			                       /// <code lang="csharp">
+			                       /// [{{{attributeName}}}(typeof(string))]
 			                       /// public partial class MyStringCollection;
 			                       /// </code>
 			                       /// </example>
 			                       /// <example>
-			                       /// <code>
-			                       /// [[attributeName(typeof(Thing), nameof(_things))]]
+			                       /// <code lang="csharp">
+			                       /// [{{{attributeName}}}(typeof(Thing), nameof(_things))]
 			                       /// public partial class MyThingCollection(IEnumerable&lt;Thing&gt; things)
 			                       /// {
 			                       ///     private readonly IReadOnlyList&lt;Thing&gt; _things = things.ToArray();

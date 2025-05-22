@@ -1,6 +1,7 @@
 namespace AutoCollection;
 internal static class Constants
 {
+	public const string LIST_ATTRIBUTE_NAME = "GenerateListAttribute";
 	public const string READ_ONLY_LIST_ATTRIBUTE_NAME = "GenerateReadOnlyListAttribute";
 	public const string NAMESPACE_NAME = nameof(AutoCollection);
 	public const string COLLECTION_TYPE_PARAMETER_NAME = "collectionType";

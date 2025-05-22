@@ -30,7 +30,7 @@ public static class Infrastructure
 			.Where(x => x.Id != "CS0246") // missing references are ok
 			.ShouldBeEmpty();
 
-		var generator = new AutoCollectionGenerator();
+		var generator = new ReadOnlyListGenerator();
 
 		CSharpGeneratorDriver
 			.Create(generator)

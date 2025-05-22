@@ -5,33 +5,39 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AutoCollection;
-/// <inheritdoc />
 /// <summary>
-///     A sample source generator that creates a custom report based on class properties. The target class should be annotated with the 'Generators.ReportAttribute' attribute.
-///     When using the source code as a baseline, an incremental source generator is preferable because it reduces the performance overhead.
+/// Serves as an abstract base class for creating incremental source generators that process specific attributes and generate code dynamically.
+/// Provides utilities to initialize the generator for defined attributes and handle the generation process.
 /// </summary>
-[Generator]
-public sealed class AutoCollectionGenerator : IIncrementalGenerator
+public abstract class AutoCollectionGenerator : IIncrementalGenerator
 {
 	/// <inheritdoc />
-	public void Initialize(IncrementalGeneratorInitializationContext context)
+	public abstract void Initialize(IncrementalGeneratorInitializationContext context);
+
+	/// <summary>
+	/// Initializes the generator with the provided context and sets up the necessary configurations.
+	/// </summary>
+	/// <param name="context">The context used to initialize the incremental generator.</param>
+	/// <param name="attributeName">The name of the attribute used to identify applicable types.</param>
+	/// <param name="builder">A function used to generate code for the specified types.</param>
+	protected void Initialize(IncrementalGeneratorInitializationContext context, string attributeName, Func<ITypeSymbol, string> builder)
 	{
-		context.RegisterDefaultAttribute(Constants.READ_ONLY_LIST_ATTRIBUTE_NAME, Constants.NAMESPACE_NAME);
-
-		const string READ_ONLY_LIST_METADATA_NAME = $"{Constants.NAMESPACE_NAME}.{Constants.READ_ONLY_LIST_ATTRIBUTE_NAME}";
-		var classes =
-			context
-				.SyntaxProvider
-				.ForAttributeWithMetadataName(READ_ONLY_LIST_METADATA_NAME,
-				                              (node, _) => node is ClassDeclarationSyntax,
-				                              (ctx, _) => (ITypeSymbol)ctx.TargetSymbol)
-				.Collect();
-
-		// Generate the source code.
-		context.RegisterSourceOutput(classes, GenerateCode);
+		context.RegisterDefaultAttribute(attributeName, Constants.NAMESPACE_NAME);
+		var readOnlyListClasses = CollectClassesForAttribute(context, Constants.READ_ONLY_LIST_ATTRIBUTE_NAME);
+		context.RegisterSourceOutput(readOnlyListClasses, (productionContext, array) => GenerateCode(productionContext, array, builder));
 	}
 
-	private static void GenerateCode(SourceProductionContext context, ImmutableArray<ITypeSymbol> enumerations)
+	private static IncrementalValueProvider<ImmutableArray<ITypeSymbol>> CollectClassesForAttribute(
+		IncrementalGeneratorInitializationContext context,
+		string attributeName) =>
+		context
+			.SyntaxProvider
+			.ForAttributeWithMetadataName($"{Constants.NAMESPACE_NAME}.{attributeName}",
+			                              (node, _) => node is ClassDeclarationSyntax,
+			                              (ctx, _) => (ITypeSymbol)ctx.TargetSymbol)
+			.Collect();
+
+	private static void GenerateCode(SourceProductionContext context, ImmutableArray<ITypeSymbol> enumerations, Func<ITypeSymbol, string> builder)
 	{
 		if(enumerations.IsDefaultOrEmpty)
 		{
@@ -44,7 +50,7 @@ public sealed class AutoCollectionGenerator : IIncrementalGenerator
 				? $"${Guid.NewGuid()}"
 				: $"{type.ContainingNamespace}";
 
-			context.AddSource($"{typeNamespace}.{type.Name}", Builder.BuildReadOnlyList(type));
+			context.AddSource($"{typeNamespace}.{type.Name}", builder(type));
 		}
 	}
 }
