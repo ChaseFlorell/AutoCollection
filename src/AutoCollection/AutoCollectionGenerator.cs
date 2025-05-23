@@ -20,11 +20,11 @@ public abstract class AutoCollectionGenerator : IIncrementalGenerator
 	/// <param name="context">The context used to initialize the incremental generator.</param>
 	/// <param name="attributeName">The name of the attribute used to identify applicable types.</param>
 	/// <param name="builder">A function used to generate code for the specified types.</param>
-	protected static void Initialize(IncrementalGeneratorInitializationContext context, string attributeName, Func<ITypeSymbol, string> builder)
+	protected static void Initialize(IncrementalGeneratorInitializationContext context, string attributeName, Func<ITypeSymbol, string, string> builder)
 	{
 		context.RegisterDefaultAttribute(attributeName, Constants.NAMESPACE_NAME);
 		var readOnlyListClasses = CollectClassesForAttribute(context, Constants.READ_ONLY_LIST_ATTRIBUTE_NAME);
-		context.RegisterSourceOutput(readOnlyListClasses, (productionContext, array) => GenerateCode(productionContext, array, builder));
+		context.RegisterSourceOutput(readOnlyListClasses, (productionContext, array) => GenerateCode(productionContext, array, attributeName, builder));
 	}
 
 	private static IncrementalValueProvider<ImmutableArray<ITypeSymbol>> CollectClassesForAttribute(
@@ -37,7 +37,7 @@ public abstract class AutoCollectionGenerator : IIncrementalGenerator
 			                              (ctx, _) => (ITypeSymbol)ctx.TargetSymbol)
 			.Collect();
 
-	private static void GenerateCode(SourceProductionContext context, ImmutableArray<ITypeSymbol> enumerations, Func<ITypeSymbol, string> builder)
+	private static void GenerateCode(SourceProductionContext context, ImmutableArray<ITypeSymbol> enumerations, string attributeName, Func<ITypeSymbol, string, string> builder)
 	{
 		if(enumerations.IsDefaultOrEmpty)
 		{
@@ -50,7 +50,7 @@ public abstract class AutoCollectionGenerator : IIncrementalGenerator
 				? $"${Guid.NewGuid()}"
 				: $"{type.ContainingNamespace}";
 
-			context.AddSource($"{typeNamespace}.{type.Name}", builder(type));
+			context.AddSource($"{typeNamespace}.{type.Name}", builder(type, attributeName));
 		}
 	}
 }

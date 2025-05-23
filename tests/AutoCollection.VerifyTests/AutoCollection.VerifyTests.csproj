@@ -27,5 +27,11 @@
 	  <None Update="ReadOnlyListGeneratorTests.GivenReadOnlyList_WhenBackingFieldSupplied_ThenGeneratesReadOnlyListWithCustomBackingField.received.txt">
 	    <DependentUpon>ReadOnlyListGeneratorTests.cs</DependentUpon>
 	  </None>
+	  <None Update="ReadOnlyListGeneratorTests.GivenList_WhenGenerated_ThenShouldReturnNothing.verified.txt">
+	    <DependentUpon>ReadOnlyListGeneratorTests.cs</DependentUpon>
+	  </None>
+	  <None Update="ListGeneratorTests.GivenList_WhenBackingFieldSupplied_ThenGeneratesListWithCustomBackingField.received.txt">
+	    <DependentUpon>ListGeneratorTests.cs</DependentUpon>
+	  </None>
 	</ItemGroup>
 </Project>

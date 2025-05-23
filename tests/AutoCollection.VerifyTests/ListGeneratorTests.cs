@@ -4,17 +4,17 @@ using VerifyXunit;
 using Xunit;
 
 namespace AutoCollection.VerifyTests;
-public sealed class ReadOnlyListGeneratorTests
+public class ListGeneratorTests
 {
 	[Fact]
-	public async Task GivenReadOnlyList_WhenInternal_ThenGeneratesReadOnlyListWithDefaultBackingField()
+	public async Task GivenList_WhenInternal_ThenGeneratesListWithDefaultBackingField()
 	{
 		const string CODE = """
 		                    using AutoCollection;
 
 		                    namespace Example;
 
-		                    [GenerateReadOnlyList(typeof(string))]
+		                    [GenerateList(typeof(string))]
 		                    internal partial class DemoClass{}
 		                    """;
 
@@ -23,14 +23,14 @@ public sealed class ReadOnlyListGeneratorTests
 	}
 
 	[Fact]
-	public async Task GivenReadOnlyList_WhenNoBackingFieldProvided_ThenGeneratesReadOnlyListWithDefaultBackingField()
+	public async Task GivenList_WhenNoBackingFieldProvided_ThenGeneratesListWithDefaultBackingField()
 	{
 		const string CODE = """
 		                    using AutoCollection;
 
 		                    namespace Example;
 
-		                    [GenerateReadOnlyList(typeof(string))]
+		                    [GenerateList(typeof(string))]
 		                    public partial class DemoClass{}
 		                    """;
 
@@ -39,20 +39,20 @@ public sealed class ReadOnlyListGeneratorTests
 	}
 
 	[Fact]
-	public async Task GivenReadOnlyList_WhenBackingFieldSupplied_ThenGeneratesReadOnlyListWithCustomBackingField()
+	public async Task GivenList_WhenBackingFieldSupplied_ThenGeneratesListWithCustomBackingField()
 	{
 		const string CODE = """
 		                    using AutoCollection;
 
 		                    namespace Example;
 
-		                    [GenerateReadOnlyList(typeof(string), nameof(_specialItems))]
+		                    [GenerateList(typeof(string), nameof(_specialItems))]
 		                    public partial class DemoClass
 		                    {
 		                        public DemoClass(IEnumerable<string> specialItems) =>
 		                            _specialItems = specialItems.ToArray();
 
-		                        private readonly string[] _specialItems;
+		                        private  string[] _specialItems;
 		                    }
 		                    """;
 
@@ -61,14 +61,29 @@ public sealed class ReadOnlyListGeneratorTests
 	}
 
 	[Fact]
-	public async Task GivenReadOnlyList_WhenComplexObjectSupplied_ThenGeneratesReadOnlyListWithComplexType()
+	public async Task GivenList_WhenComplexObjectSupplied_ThenGeneratesListWithComplexType()
 	{
 		const string CODE = """
 		                    using AutoCollection;
 
 		                    namespace Example;
 
-		                    [GenerateReadOnlyList(typeof(Foo))]
+		                    [GenerateList(typeof(Foo))]
+		                    public partial class DemoClass{}
+		                    """;
+
+		var generated = Infrastructure.GenerateCode(CODE);
+		await Verifier.Verify(generated);
+	}
+
+	[Fact]
+	public async Task GivenNoAttribute_WhenGenerated_ThenShouldReturnNothing()
+	{
+		const string CODE = """
+		                    using AutoCollection;
+
+		                    namespace Example;
+
 		                    public partial class DemoClass{}
 		                    """;
 
