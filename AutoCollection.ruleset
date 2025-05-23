@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="AutoCollection Code Analysis Rules" Description="Code analysis rules for AutoCollection solution." ToolsVersion="17.0">
+	<Rules AnalyzerId="Microsoft.CodeAnalysis.NetAnalyzers" RuleNamespace="Microsoft.CodeAnalysis.NetAnalyzers">
+		<!-- Style Rules -->
+		<Rule Id="CA1000" Action="None" /> <!-- Do not declare static members on generic types -->
+		<Rule Id="CA1001" Action="Error" /> <!-- Types that own disposable fields should be disposable -->
+		<Rule Id="CA1014" Action="None" /> <!-- Mark assemblies with CLSCompliantAttribute -->
+		<Rule Id="SA1028" Action="Error" /> <!-- Do not allow trailing whitespace-->
+		<Rule Id="CA1031" Action="None" /> <!-- Do not catch general exception types -->
+		<Rule Id="CA1062" Action="None" /> <!-- Validate arguments of public methods -->
+
+		<!-- Naming Rules -->
+		<Rule Id="CA1707" Action="None" /> <!-- Identifiers should not contain underscores -->
+		<Rule Id="CA1708" Action="Error" /> <!-- Identifiers should differ by more than case -->
+		<Rule Id="CA1710" Action="Error" /> <!-- Identifiers should have correct suffix -->
+		<Rule Id="CA1711" Action="Error" /> <!-- Identifiers should not have incorrect suffix -->
+		<Rule Id="CA1712" Action="Error" /> <!-- Do not prefix enum values with type name -->
+		<Rule Id="CA1715" Action="Error" /> <!-- Identifiers should have correct prefix -->
+		<Rule Id="CA1716" Action="Error" /> <!-- Identifiers should not match keywords -->
+		<Rule Id="CA1720" Action="Error" /> <!-- Identifiers should not contain type names -->
+		<Rule Id="CA1725" Action="Error" /> <!-- Parameter names should match base declaration -->
+
+		<!-- Design Rules -->
+		<Rule Id="CA1002" Action="None" /> <!-- Do not expose generic lists -->
+		<Rule Id="CA1024" Action="None" /> <!-- Use properties where appropriate -->
+		<Rule Id="CA1032" Action="Error" /> <!-- Implement standard exception constructors -->
+		<Rule Id="CA1033" Action="Error" /> <!-- Interface methods should be callable by child types -->
+		<Rule Id="CA1034" Action="Error" /> <!-- Nested types should not be visible -->
+		<Rule Id="CA1036" Action="Error" /> <!-- Override methods on comparable types -->
+		<Rule Id="CA1040" Action="Error" /> <!-- Avoid empty interfaces -->
+		<Rule Id="CA1051" Action="Error" /> <!-- Do not declare visible instance fields -->
+		<Rule Id="CA1052" Action="Error" /> <!-- Static holder types should be Static or NotInheritable -->
+		<Rule Id="CA1054" Action="Error" /> <!-- URI parameters should not be strings -->
+		<Rule Id="CA1055" Action="Error" /> <!-- URI return values should not be strings -->
+		<Rule Id="CA1056" Action="Error" /> <!-- URI properties should not be strings -->
+		<Rule Id="CA1061" Action="Error" /> <!-- Do not hide base class methods -->
+		<Rule Id="CA1063" Action="Error" /> <!-- Implement IDisposable correctly -->
+		<Rule Id="CA1064" Action="Error" /> <!-- Exceptions should be public -->
+		<Rule Id="CA1065" Action="Error" /> <!-- Do not raise exceptions in unexpected locations -->
+
+		<!-- Performance Rules -->
+		<Rule Id="CA1801" Action="Error" /> <!-- Review unused parameters -->
+		<Rule Id="CA1805" Action="Error" /> <!-- Do not initialize unnecessarily -->
+		<Rule Id="CA1812" Action="Error" /> <!-- Avoid uninstantiated internal classes -->
+		<Rule Id="CA1822" Action="Error" /> <!-- Mark members as static -->
+		<Rule Id="CA1823" Action="Error" /> <!-- Avoid unused private fields -->
+		<Rule Id="CA1825" Action="Error" /> <!-- Avoid zero-length array allocations -->
+		<Rule Id="CA1826" Action="Error" /> <!-- Do not use Enumerable methods on indexable collections -->
+		<Rule Id="CA1827" Action="Error" /> <!-- Do not use Count() or LongCount() when Any() can be used -->
+
+		<!-- Maintainability Rules -->
+		<Rule Id="CA1501" Action="Error" /> <!-- Avoid excessive inheritance -->
+		<Rule Id="CA1502" Action="Error" /> <!-- Avoid excessive complexity -->
+		<Rule Id="CA1505" Action="Error" /> <!-- Avoid unmaintainable code -->
+		<Rule Id="CA1506" Action="Error" /> <!-- Avoid excessive class coupling -->
+
+		<!-- Reliability Rules -->
+		<Rule Id="CA2000" Action="Error" /> <!-- Dispose objects before losing scope -->
+		<Rule Id="CA2002" Action="Error" /> <!-- Do not lock on objects with weak identity -->
+		<Rule Id="CA2007" Action="Info" /> <!-- Consider calling ConfigureAwait on the awaited task -->
+		<Rule Id="CA2008" Action="Error" /> <!-- Do not create tasks without passing a TaskScheduler -->
+		<Rule Id="CA2009" Action="Error" /> <!-- Do not call ToImmutableCollection on an ImmutableCollection value -->
+
+		<!-- Usage Rules -->
+		<Rule Id="CA2200" Action="Error" /> <!-- Rethrow to preserve stack details -->
+		<Rule Id="CA2213" Action="Error" /> <!-- Disposable fields should be disposed -->
+		<Rule Id="CA2227" Action="None" /> <!-- Collection properties should be read only -->
+		<Rule Id="CA2234" Action="Error" /> <!-- Pass system uri objects instead of strings -->
+		<Rule Id="CA2237" Action="Error" /> <!-- Mark ISerializable types with SerializableAttribute -->
+
+		<!-- Security Rules -->
+		<Rule Id="CA2300" Action="Error" /> <!-- Do not use insecure deserializer BinaryFormatter -->
+		<Rule Id="CA2305" Action="Error" /> <!-- Do not use insecure deserializer LosFormatter -->
+		<Rule Id="CA2310" Action="Error" /> <!-- Do not use insecure deserializer NetDataContractSerializer -->
+		<Rule Id="CA2315" Action="Error" /> <!-- Do not use insecure deserializer ObjectStateFormatter -->
+	</Rules>
+</RuleSet>
