@@ -1,0 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace {Namespace}
+{
+	/// <inheritdoc cref="IReadOnlyList{T}" />
+	{Accessor} partial class {ClassName} : IReadOnlyList<{CollectionType}>
+	{
+		/// <inheritdoc cref="IReadOnlyList{T}" />
+		public IEnumerator<{CollectionType}> GetEnumerator() => {BackingField}.GetEnumerator();
+
+		/// <inheritdoc cref="IEnumerable" />
+		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+		/// <inheritdoc cref="IReadOnlyCollection{T}" />
+		public int Count => {BackingField}.Count;
+
+		/// <inheritdoc cref="IReadOnlyList{T}" />
+		public {CollectionType} this[int index] => {BackingField}[index];
+	}
+}

@@ -9,6 +9,7 @@ public class ListGeneratorTests
 	[Fact]
 	public async Task GivenList_WhenInternal_ThenGeneratesListWithDefaultBackingField()
 	{
+		var sut = new ListGenerator();
 		const string CODE = """
 		                    using AutoCollection;
 
@@ -18,13 +19,14 @@ public class ListGeneratorTests
 		                    internal partial class DemoClass{}
 		                    """;
 
-		var generated = Infrastructure.GenerateCode(CODE);
+		var generated = Infrastructure.GenerateCode(sut, CODE);
 		await Verifier.Verify(generated);
 	}
 
 	[Fact]
 	public async Task GivenList_WhenNoBackingFieldProvided_ThenGeneratesListWithDefaultBackingField()
 	{
+		var sut = new ListGenerator();
 		const string CODE = """
 		                    using AutoCollection;
 
@@ -34,13 +36,14 @@ public class ListGeneratorTests
 		                    public partial class DemoClass{}
 		                    """;
 
-		var generated = Infrastructure.GenerateCode(CODE);
+		var generated = Infrastructure.GenerateCode(sut, CODE);
 		await Verifier.Verify(generated);
 	}
 
 	[Fact]
 	public async Task GivenList_WhenBackingFieldSupplied_ThenGeneratesListWithCustomBackingField()
 	{
+		var sut = new ListGenerator();
 		const string CODE = """
 		                    using AutoCollection;
 
@@ -56,13 +59,14 @@ public class ListGeneratorTests
 		                    }
 		                    """;
 
-		var generated = Infrastructure.GenerateCode(CODE);
+		var generated = Infrastructure.GenerateCode(sut, CODE);
 		await Verifier.Verify(generated);
 	}
 
 	[Fact]
 	public async Task GivenList_WhenComplexObjectSupplied_ThenGeneratesListWithComplexType()
 	{
+		var sut = new ListGenerator();
 		const string CODE = """
 		                    using AutoCollection;
 
@@ -72,13 +76,14 @@ public class ListGeneratorTests
 		                    public partial class DemoClass{}
 		                    """;
 
-		var generated = Infrastructure.GenerateCode(CODE);
+		var generated = Infrastructure.GenerateCode(sut, CODE);
 		await Verifier.Verify(generated);
 	}
 
 	[Fact]
 	public async Task GivenNoAttribute_WhenGenerated_ThenShouldReturnNothing()
 	{
+		var sut = new ListGenerator();
 		const string CODE = """
 		                    using AutoCollection;
 
@@ -87,7 +92,7 @@ public class ListGeneratorTests
 		                    public partial class DemoClass{}
 		                    """;
 
-		var generated = Infrastructure.GenerateCode(CODE);
+		var generated = Infrastructure.GenerateCode(sut, CODE);
 		await Verifier.Verify(generated);
 	}
 }
