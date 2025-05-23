@@ -8,8 +8,8 @@ namespace AutoCollection;
 ///     When using the source code as a baseline, an incremental source generator is preferable because it reduces the performance overhead.
 /// </summary>
 [Generator]
-public sealed class ReadOnlyListGenerator : AutoCollectionGenerator
+public sealed class ReadOnlyListGenerator : AutoCollectionGeneratorBase
 {
 	/// <inheritdoc />
-	public override void Initialize(IncrementalGeneratorInitializationContext context) => Initialize(context, Constants.READ_ONLY_LIST_ATTRIBUTE_NAME, ReadOnlyListBuilder.Build);
+	public override void Initialize(IncrementalGeneratorInitializationContext context) => Initialize(context, Constants.READ_ONLY_LIST_ATTRIBUTE_NAME, Helper.Build);
 }

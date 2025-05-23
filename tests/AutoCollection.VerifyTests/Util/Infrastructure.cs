@@ -7,7 +7,7 @@ using System.Linq;
 namespace AutoCollection.VerifyTests.Util;
 public static class Infrastructure
 {
-	public static string GenerateCode(string code)
+	public static string GenerateCode(IIncrementalGenerator generator, string code)
 	{
 		var syntaxTree = CSharpSyntaxTree.ParseText(code);
 		var references = AppDomain
@@ -29,8 +29,6 @@ public static class Infrastructure
 			.Where(d => d.Severity == DiagnosticSeverity.Error)
 			.Where(x => x.Id != "CS0246") // missing references are ok
 			.ShouldBeEmpty();
-
-		var generator = new ReadOnlyListGenerator();
 
 		CSharpGeneratorDriver
 			.Create(generator)

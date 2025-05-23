@@ -1,0 +1,57 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace {Namespace}
+{
+	{Accessor} partial class {ClassName} : IList<{CollectionType}>
+	{
+		public {ClassName}(IEnumerable<{CollectionType}> items) =>
+			{BackingField} = items?.ToList() ?? throw new System.ArgumentNullException(nameof(items));
+
+		/// <inheritdoc cref="IList{T}" />
+		public IEnumerator<{CollectionType}> GetEnumerator() => {BackingField}.GetEnumerator();
+
+		/// <inheritdoc cref="IList{T}"  />
+		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+		/// <inheritdoc  cref="IList{T}" />
+		public void Add({CollectionType} item) => {BackingField}.Add(item);
+
+		/// <inheritdoc cref="IList{T}" />
+		public void Clear() => {BackingField}.Clear();
+
+		/// <inheritdoc  cref="IList{T}" />
+		public bool Contains({CollectionType} item) => {BackingField}.Contains(item);
+
+		/// <inheritdoc  cref="IList{T}" />
+		public void CopyTo({CollectionType}[] array, int arrayIndex) => {BackingField}.CopyTo(array, arrayIndex);
+
+		/// <inheritdoc  cref="IList{T}" />
+		public bool Remove({CollectionType} item) => {BackingField}.Remove(item);
+
+		/// <inheritdoc  cref="IList{T}" />
+		public int Count => {BackingField}.Count;
+
+		/// <inheritdoc  cref="IList{T}" />
+		public bool IsReadOnly => {BackingField}.IsReadOnly;
+
+		/// <inheritdoc cref="IList{T}" />
+		public int IndexOf({CollectionType} item) => {BackingField}.IndexOf(item);
+
+		/// <inheritdoc cref="IList{T}" />
+		public void Insert(int index, {CollectionType} item) => {BackingField}.Insert(index, item);
+
+		/// <inheritdoc cref="IList{T}" />
+		public void RemoveAt(int index) => {BackingField}.RemoveAt(index);
+
+		/// <inheritdoc cref="IList{T}" />
+		public {CollectionType} this[int index]
+		{
+			get => {BackingField}[index];
+			set => {BackingField}[index] = value;
+		}
+
+		private readonly IList<{CollectionType}> {BackingField};
+	}
+}

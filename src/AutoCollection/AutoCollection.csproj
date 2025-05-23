@@ -66,4 +66,11 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<ItemGroup>
+		<EmbeddedResource Include="Templates\GenerateListAttribute.Backed.txt" />
+		<EmbeddedResource Include="Templates\GenerateListAttribute.Default.txt" />
+		<EmbeddedResource Include="Templates\GenerateReadOnlyListAttribute.Backed.txt" />
+		<EmbeddedResource Include="Templates\GenerateReadOnlyListAttribute.Default.txt" />
+	</ItemGroup>
+
 </Project>

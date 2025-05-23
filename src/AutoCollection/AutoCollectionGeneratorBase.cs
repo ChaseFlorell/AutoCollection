@@ -9,7 +9,7 @@ namespace AutoCollection;
 /// Serves as an abstract base class for creating incremental source generators that process specific attributes and generate code dynamically.
 /// Provides utilities to initialize the generator for defined attributes and handle the generation process.
 /// </summary>
-public abstract class AutoCollectionGenerator : IIncrementalGenerator
+public abstract class AutoCollectionGeneratorBase : IIncrementalGenerator
 {
 	/// <inheritdoc />
 	public abstract void Initialize(IncrementalGeneratorInitializationContext context);
@@ -23,7 +23,7 @@ public abstract class AutoCollectionGenerator : IIncrementalGenerator
 	protected static void Initialize(IncrementalGeneratorInitializationContext context, string attributeName, Func<ITypeSymbol, string, string> builder)
 	{
 		context.RegisterDefaultAttribute(attributeName, Constants.NAMESPACE_NAME);
-		var readOnlyListClasses = CollectClassesForAttribute(context, Constants.READ_ONLY_LIST_ATTRIBUTE_NAME);
+		var readOnlyListClasses = CollectClassesForAttribute(context, attributeName);
 		context.RegisterSourceOutput(readOnlyListClasses, (productionContext, array) => GenerateCode(productionContext, array, attributeName, builder));
 	}
 
