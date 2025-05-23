@@ -20,7 +20,7 @@ public abstract class AutoCollectionGenerator : IIncrementalGenerator
 	/// <param name="context">The context used to initialize the incremental generator.</param>
 	/// <param name="attributeName">The name of the attribute used to identify applicable types.</param>
 	/// <param name="builder">A function used to generate code for the specified types.</param>
-	protected void Initialize(IncrementalGeneratorInitializationContext context, string attributeName, Func<ITypeSymbol, string> builder)
+	protected static void Initialize(IncrementalGeneratorInitializationContext context, string attributeName, Func<ITypeSymbol, string> builder)
 	{
 		context.RegisterDefaultAttribute(attributeName, Constants.NAMESPACE_NAME);
 		var readOnlyListClasses = CollectClassesForAttribute(context, Constants.READ_ONLY_LIST_ATTRIBUTE_NAME);

@@ -34,7 +34,7 @@ public sealed class ReadOnlyListGeneratorTests
 		                    public partial class DemoClass{}
 		                    """;
 
-		var generated = Infrastructure.GenerateCode(CODE);
+		var generated = Infrastructure    .GenerateCode(CODE);
 		await Verifier.Verify(generated);
 	}
 
