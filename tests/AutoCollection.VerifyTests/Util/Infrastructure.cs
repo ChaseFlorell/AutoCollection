@@ -46,7 +46,7 @@ public static class Infrastructure
 
 		if(outputCompilation.SyntaxTrees.Count() <= 2)
 		{
-			return " ";
+			return string.Empty;
 		}
 
 		var result = outputCompilation.SyntaxTrees.Skip(2).Last().ToString();

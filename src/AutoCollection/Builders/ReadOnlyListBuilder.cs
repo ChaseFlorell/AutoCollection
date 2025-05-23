@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -7,16 +6,16 @@ using Microsoft.CodeAnalysis.CSharp;
 namespace AutoCollection.Builders;
 internal static class ReadOnlyListBuilder
 {
-	public static string Build(ITypeSymbol type)
+	public static string Build(ITypeSymbol type, string attributeName)
 	{
 		var generationAttribute = type
 		                          .GetAttributes()
 		                          .First(x =>
 			                                 x.AttributeClass != null
-			                                 && x.AttributeClass.Name.Contains(Constants.READ_ONLY_LIST_ATTRIBUTE_NAME)
+			                                 && x.AttributeClass.Name.Contains(attributeName)
 		                                );
 
-		var dict = GetParameterDictionary(generationAttribute);
+		var dict = generationAttribute.GetParameterDictionary();
 
 		var collectionType = dict[Constants.COLLECTION_TYPE_PARAMETER_NAME]!.ToString();
 		var backingField = dict[Constants.BACKING_FIELD_PARAMETER_NAME];
@@ -66,30 +65,5 @@ internal static class ReadOnlyListBuilder
 		builder.AppendLine("}");
 
 		return builder.ToString();
-	}
-
-	/// <summary>
-	///     Converts the attribute data of a given attribute into a dictionary where the keys are the
-	///     parameter names from the attribute's constructor and the values are the corresponding
-	///     argument values passed to the attribute.
-	/// </summary>
-	/// <param name="generationAttribute">
-	///     The attribute data from which to extract parameter
-	///     information.
-	/// </param>
-	/// <returns>
-	///     A dictionary containing the parameter names as keys and their corresponding
-	///     values as dictionary values.
-	/// </returns>
-	private static Dictionary<string, object?> GetParameterDictionary(AttributeData generationAttribute)
-	{
-		var dict = new Dictionary<string, object?>();
-		for(var index = 0; index < generationAttribute.AttributeConstructor!.Parameters.Length; index++)
-		{
-			var parameter = generationAttribute.AttributeConstructor!.Parameters[index];
-			dict.Add(parameter.Name, generationAttribute.ConstructorArguments[index].Value);
-		}
-
-		return dict;
 	}
 }

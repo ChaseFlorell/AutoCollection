@@ -1,7 +1,7 @@
 namespace AutoCollection.UnitTests.Models;
 /// <summary>Generate a Person ReadOnlyList implementation. <see cref="Person" /> is a complex type.</summary>
 [GenerateReadOnlyList(typeof(Person))]
-public sealed partial class PersonList;
+public sealed partial class PersonReadOnlyList;
 
 #region PersonObject
 
