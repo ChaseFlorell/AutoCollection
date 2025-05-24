@@ -38,7 +38,8 @@ internal class Build
 	  ICanCompile,
 	  ICanTest,
 	  ICanPublish,
-	  ICanInspectCode
+	  ICanInspectCode,
+	  ICanRelease
 {
 	/// <inheritdoc />
 	[Parameter]

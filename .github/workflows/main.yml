@@ -17,25 +17,25 @@
 name: main
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 jobs:
-    macos-latest:
-        name: macos-latest
-        runs-on: macos-latest
-        steps:
-            -   uses: actions/checkout@v4
-            -   name: 'Cache: .nuke/temp, ~/.nuget/packages'
-                uses: actions/cache@v4
-                with:
-                    path: |
-                        .nuke/temp
-                        ~/.nuget/packages
-                    key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/Directory.Packages.props') }}
-            -   name: 'Run: Publish'
-                run: ./build.cmd Publish
-                env:
-                    NugetApiKey: ${{ secrets.NUGET_API_KEY }}
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  macos-latest:
+    name: macos-latest
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 'Cache: .nuke/temp, ~/.nuget/packages'
+        uses: actions/cache@v4
+        with:
+          path: |
+            .nuke/temp
+            ~/.nuget/packages
+          key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/Directory.Packages.props') }}
+      - name: 'Run: TagRelease'
+        run: ./build.cmd TagRelease
+        env:
+          NugetApiKey: ${{ secrets.NUGET_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

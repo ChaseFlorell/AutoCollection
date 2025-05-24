@@ -30,6 +30,7 @@
         "InstallTools",
         "Publish",
         "Run",
+        "TagRelease",
         "Test"
       ]
     },
@@ -111,6 +112,10 @@
             "Debug",
             "Release"
           ]
+        },
+        "GitHubToken": {
+          "type": "string",
+          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
         },
         "NugetApiKey": {
           "type": "string",
