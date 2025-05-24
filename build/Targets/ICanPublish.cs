@@ -1,7 +1,11 @@
+using System.Linq;
 using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Git;
 using Nuke.Common.Tools.DotNet;
+using Nuke.Common.Tools.Git;
+using Nuke.Common.Tools.GitHub;
+using Octokit;
 
 namespace AutoCollection.Build.Targets;
 /// <inheritdoc />
@@ -45,5 +49,30 @@ public interface ICanPublish : IHaveConfiguration
 		                                                        .SetApiKey(NugetApiKey)
 		                                                        .SetSource("https://api.nuget.org/v3/index.json")
 		                                                        .SetTargetPath(BuildArtifactsDirectory / "AutoCollection" / $"AutoCollection.{Version}.nupkg")
-		                                                        .SetSymbolSource(BuildArtifactsDirectory / "AutoCollection" / $"AutoCollection.{Version}.snupkg")));
+		                                                        .SetSymbolSource(BuildArtifactsDirectory / "AutoCollection" / $"AutoCollection.{Version}.snupkg")))
+		     .Executes(async () =>
+		     {
+			     GitHubTasks.GitHubClient.Credentials = new Credentials(GitHubActions.Instance?.Token);
+
+			     // Get the SHA of the current commit
+			     var sha = GitTasks.Git("rev-parse HEAD", logOutput: false, logInvocation: false)
+			                       .FirstOrDefault().Text;
+
+			     // Create a tag and reference object
+			     var tagObject = new NewTag {Tag = $"v{Version}", Message = $"Release version {Version}", Object = sha, Type = TaggedType.Tag};
+			     var tagRef = new NewReference($"refs/tags/v{Version}", sha);
+
+			     await GitHubTasks
+			           .GitHubClient
+			           .Git
+			           .Tag
+			           .Create("ChaseFlorell", "AutoCollection", tagObject)
+			           .ConfigureAwait(false);
+
+			     await GitHubTasks
+			           .GitHubClient
+			           .Git
+			           .Reference
+			           .Create("ChaseFlorell", "AutoCollection", tagRef);
+		     });
 }
