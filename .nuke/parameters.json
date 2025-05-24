@@ -1,4 +1,4 @@
 {
-  "$schema": "build.schema.json",
-  "Solution": "AutoCollection.sln"
+	"$schema": "build.schema.json",
+	"Solution": "AutoCollection.sln"
 }

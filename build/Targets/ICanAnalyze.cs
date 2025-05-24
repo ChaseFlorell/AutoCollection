@@ -4,16 +4,16 @@ using Nuke.Common.Tools.DotNet;
 
 namespace AutoCollection.Build.Targets;
 /// <summary>
-/// Represents an ability to analyze code using specific tools or configurations.
+///     Represents an ability to analyze code using specific tools or configurations.
 /// </summary>
 public interface ICanInspectCode : IHaveConfiguration
 {
 	/// <summary>
-	/// Represents a target that installs required .NET tools necessary for the build process.
+	///     Represents a target that installs required .NET tools necessary for the build process.
 	/// </summary>
 	/// <remarks>
-	/// This target ensures that all specified .NET tools are installed and configured before executing
-	/// other dependent targets. It is commonly executed before inspection or compilation tasks.
+	///     This target ensures that all specified .NET tools are installed and configured before executing
+	///     other dependent targets. It is commonly executed before inspection or compilation tasks.
 	/// </remarks>
 	Target InstallTools =>
 		target => target
@@ -27,11 +27,11 @@ public interface ICanInspectCode : IHaveConfiguration
 					                                       .SetGlobal(true)));
 
 	/// <summary>
-	/// Represents a target that runs ReSharper InspectCode using the EditorConfig for code analysis.
+	///     Represents a target that runs ReSharper InspectCode using the EditorConfig for code analysis.
 	/// </summary>
 	/// <remarks>
-	/// This target uses ReSharper's code inspection tool to analyze the codebase according to the specified EditorConfig rules.
-	/// The inspection severity level can be adjusted using the InspectCodeSeverity parameter, defaulting to 'WARNING' if not specified.
+	///     This target uses ReSharper's code inspection tool to analyze the codebase according to the specified EditorConfig rules.
+	///     The inspection severity level can be adjusted using the InspectCodeSeverity parameter, defaulting to 'WARNING' if not specified.
 	/// </remarks>
 	Target Inspect =>
 		target => target
@@ -40,6 +40,6 @@ public interface ICanInspectCode : IHaveConfiguration
 		          .Executes(() => ProcessTasks
 		                          .StartProcess("jb",
 		                                        $"inspectcode {Solution} --output={InspectionResults} --severity=WARNING --format=Sarif --properties:Configuration={Configuration} --disable-settings-layers=SolutionPersonal --no-buildin-settings --no-build",
-		                                        workingDirectory: RootDirectory)
+		                                        RootDirectory)
 		                          .AssertZeroExitCode());
 }
