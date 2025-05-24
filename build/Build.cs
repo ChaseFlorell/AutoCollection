@@ -28,7 +28,7 @@ namespace AutoCollection.Build;
 [GitHubActions("main",
                GitHubActionsImage.MacOsLatest,
                OnPushBranches = ["main",],
-               InvokedTargets = [nameof(ICanPublish.Publish),],
+               InvokedTargets = [nameof(ICanRelease.TagRelease),],
                CacheKeyFiles = ["**/global.json", "**/Directory.Packages.props",],
                ImportSecrets = [nameof(NugetApiKey),],
                EnableGitHubToken = true)]
@@ -40,6 +40,16 @@ internal class Build
 	  ICanPublish,
 	  ICanInspectCode
 {
+	[Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")] public Configuration Configuration { get; set; } = Configuration.Release;
+
+	[Solution] public Solution? Solution { get; }
+
+	[GitRepository] public GitRepository? Repository { get; }
+
+	[Parameter] [Secret] public string? NugetApiKey { get; }
+
+	public static int Main() => Execute<Build>(x => x.Run);
+
 	/// <summary>
 	///     Represents the primary build target in the pipeline.
 	///     Responsible for orchestrating the execution of unit tests by depending on the
@@ -51,14 +61,4 @@ internal class Build
 			target
 				.DependsOn<ICanTest>(static x => x.Test)
 				.DependsOn<ICanInspectCode>(static x => x.Inspect);
-
-	[Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")] public Configuration Configuration { get; set; } = Configuration.Release;
-
-	[Solution] public Solution? Solution { get; }
-
-	[GitRepository] public GitRepository? Repository { get; }
-
-	[Parameter] [Secret] public string? NugetApiKey { get; }
-
-	public static int Main() => Execute<Build>(x => x.Run);
 }
