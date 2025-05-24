@@ -43,8 +43,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "wiki", "wiki", "{A4923305-AC18-401C-AE87-5FDCCABBE215}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCollection.Wiki", "wiki\AutoCollection.Wiki.csproj", "{80B5F6FF-35F7-410B-8C67-CD9E2E177A42}"
+	ProjectSection(SolutionItems) = preProject
+		wiki\Home.md = wiki\Home.md
+		wiki\GenerateReadOnlyList.md = wiki\GenerateReadOnlyList.md
+		wiki\GenerateList.md = wiki\GenerateList.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,7 +61,6 @@ Global
 		{C6CDEA20-B0B6-429C-AE9D-F4AA0D3AFC91} = {9D36A0E3-86FD-4142-8E5A-E88C5A97FFD4}
 		{A532FF2F-E216-4C35-B6A9-3FF6F0D92910} = {8FF3D3E4-A7E5-48E6-B189-5409362B6A6F}
 		{33B80364-B76C-4C12-BBB4-20930388E709} = {A532FF2F-E216-4C35-B6A9-3FF6F0D92910}
-		{80B5F6FF-35F7-410B-8C67-CD9E2E177A42} = {A4923305-AC18-401C-AE87-5FDCCABBE215}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C6CDEA20-B0B6-429C-AE9D-F4AA0D3AFC91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -75,9 +77,5 @@ Global
 		{ACA31BC5-66B0-4522-8830-4AF8ED24031B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACA31BC5-66B0-4522-8830-4AF8ED24031B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACA31BC5-66B0-4522-8830-4AF8ED24031B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{80B5F6FF-35F7-410B-8C67-CD9E2E177A42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{80B5F6FF-35F7-410B-8C67-CD9E2E177A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{80B5F6FF-35F7-410B-8C67-CD9E2E177A42}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{80B5F6FF-35F7-410B-8C67-CD9E2E177A42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
