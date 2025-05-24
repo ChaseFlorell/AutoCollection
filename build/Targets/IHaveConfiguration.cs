@@ -18,7 +18,7 @@ public interface IHaveConfiguration : INukeBuild
 	/// </summary>
 	[Parameter("GitHub authentication token")]
 	[Secret]
-	string GitHubToken { get; }
+	string? GitHubToken { get; }
 
 	/// <summary>
 	///     Gets the build configuration to use.

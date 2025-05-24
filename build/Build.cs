@@ -40,6 +40,11 @@ internal class Build
 	  ICanPublish,
 	  ICanInspectCode
 {
+	/// <inheritdoc />
+	[Parameter]
+	[Secret]
+	public string? GitHubToken { get; }
+
 	[Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")] public Configuration Configuration { get; set; } = Configuration.Release;
 
 	[Solution] public Solution? Solution { get; }
