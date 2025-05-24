@@ -38,6 +38,8 @@ public interface ICanCompile : IHaveConfiguration
 			                                   DotNetTasks
 				                                   .DotNetBuild(s => s
 				                                                     .SetProjectFile(project)
+				                                                     .SetTreatWarningsAsErrors(true)
+				                                                     .SetWarningLevel(4)
 				                                                     .SetAssemblyVersion(Version)
 				                                                     .SetFileVersion(__today)
 				                                                     .SetVersion(Version)

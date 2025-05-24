@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Immutable;
-using AutoCollection.Extensions;
+using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
 
 namespace AutoCollection;
 /// <summary>
@@ -22,7 +23,7 @@ public abstract class AutoCollectionGeneratorBase : IIncrementalGenerator
 	/// <param name="builder">A function used to generate code for the specified types.</param>
 	protected static void Initialize(IncrementalGeneratorInitializationContext context, string attributeName, Func<ITypeSymbol, string, string> builder)
 	{
-		context.RegisterDefaultAttribute(attributeName, Constants.NAMESPACE_NAME);
+		RegisterDefaultAttribute(context, attributeName, Constants.NAMESPACE_NAME);
 		var readOnlyListClasses = CollectClassesForAttribute(context, attributeName);
 		context.RegisterSourceOutput(readOnlyListClasses, (productionContext, array) => GenerateCode(productionContext, array, attributeName, builder));
 	}
@@ -50,7 +51,58 @@ public abstract class AutoCollectionGeneratorBase : IIncrementalGenerator
 				? $"${Guid.NewGuid()}"
 				: $"{type.ContainingNamespace}";
 
-			context.AddSource($"{typeNamespace}.{type.Name}", builder(type, attributeName));
+			context.AddSource($"{typeNamespace}.{type.Name}.g", builder(type, attributeName));
 		}
+	}
+
+	private static IncrementalGeneratorInitializationContext RegisterDefaultAttribute(
+		IncrementalGeneratorInitializationContext context,
+		string attributeName,
+		string namespaceName)
+	{
+		context.RegisterPostInitializationOutput(postInitializationContext =>
+		{
+			var attribute = $$$"""
+			                   #nullable enable
+			                   {{{Constants.AUTO_GENERATED_MESSAGE}}}
+			                   using System;
+			                   using System.Collections.Generic;
+
+			                   namespace {{{namespaceName}}}
+			                   {
+			                       /// <summary>
+			                       /// When you decorate a partial class with this attribute,
+			                       /// Roslyn will autogenerate a collection
+			                       /// implementation for your class
+			                       /// </summary>
+			                       /// <example>
+			                       /// <code lang="csharp">
+			                       /// [{{{attributeName}}}(typeof(string))]
+			                       /// public partial class MyStringCollection;
+			                       /// </code>
+			                       /// </example>
+			                       /// <example>
+			                       /// <code lang="csharp">
+			                       /// [{{{attributeName}}}(typeof(Thing), nameof(_things))]
+			                       /// public partial class MyThingCollection(IEnumerable&lt;Thing&gt; things)
+			                       /// {
+			                       ///     private readonly IReadOnlyList&lt;Thing&gt; _things = things.ToArray();
+			                       /// }
+			                       /// </code>
+			                       /// </example>
+			                       /// <returns>A boilerplate implementation of your specified collection type.</returns>
+			                       [AttributeUsage(AttributeTargets.Class, Inherited = false)]
+			                       internal sealed class {{{attributeName}}} : Attribute
+			                       {
+			                           internal {{{attributeName}}}(Type {{{Constants.COLLECTION_TYPE_PARAMETER_NAME}}}, string? {{{Constants.BACKING_FIELD_PARAMETER_NAME}}} = null) { }
+			                       }
+			                   }
+			                   """;
+
+			var className = $"{attributeName}.Attribute.g.cs";
+			postInitializationContext.AddSource(className, SourceText.From(attribute, Encoding.UTF8));
+		});
+
+		return context;
 	}
 }

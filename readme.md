@@ -94,11 +94,28 @@ Console.WriteLine(people.Count);              // Outputs: 2
 Console.WriteLine(people[0].FullName);        // Outputs: "John Doe"
 ```
 
+### 4. Basic Usage for IList<T>
+```csharp
+using AutoCollection;
+
+namespace Example;
+
+// Apply the attribute to a partial class
+[GenerateList(typeof(string))]
+public partial class SimpleStringList { }
+
+// Usage:
+var stringList = new SimpleStringList(["one", "two", "three"]);
+Console.WriteLine(stringList.Count);    // Outputs: 3
+Console.WriteLine(stringList[0]);       // Outputs: "one"
+stringList.Add("Four");
+Console.WriteLine(stringList[3]);       // Outputs: "four"
+```
+
 ## Features
 
 - **Zero runtime dependencies** - AutoCollection runs at build time through the C# source generator feature
 - **Type safety** - Get compile-time checking for your collections
-- **Immutable by default** - No risk of collection modification after creation
 - **Customizable** - Use default implementation or provide your own backing field and constructor
 - **Lightweight** - Generates minimal code with no performance overhead
 
