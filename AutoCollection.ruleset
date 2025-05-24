@@ -5,7 +5,6 @@
 		<Rule Id="CA1000" Action="None" /> <!-- Do not declare static members on generic types -->
 		<Rule Id="CA1001" Action="Error" /> <!-- Types that own disposable fields should be disposable -->
 		<Rule Id="CA1014" Action="None" /> <!-- Mark assemblies with CLSCompliantAttribute -->
-		<Rule Id="SA1028" Action="Error" /> <!-- Do not allow trailing whitespace-->
 		<Rule Id="CA1031" Action="None" /> <!-- Do not catch general exception types -->
 		<Rule Id="CA1062" Action="None" /> <!-- Validate arguments of public methods -->
 

@@ -12,6 +12,15 @@ namespace AutoCollection.Build.Targets;
 public interface IHaveConfiguration : INukeBuild
 {
 	/// <summary>
+	/// Gets the GitHub authentication token required for accessing GitHub resources.
+	/// The token is marked as secret and should be provided when necessary for CI/CD pipelines
+	/// or other interactions with GitHub APIs.
+	/// </summary>
+	[Parameter("GitHub authentication token")]
+	[Secret]
+	string GitHubToken { get; }
+
+	/// <summary>
 	///     Gets the build configuration to use.
 	///     Defaults to 'Debug' for local builds or 'Release' for server builds.
 	/// </summary>
