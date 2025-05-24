@@ -28,18 +28,18 @@ namespace AutoCollection.Build;
 [GitHubActions("main",
                GitHubActionsImage.MacOsLatest,
                OnPushBranches = ["main",],
-               InvokedTargets = [nameof(ICanRelease.TagRelease),],
+               InvokedTargets = [nameof(ICanPublish.Publish),],
                CacheKeyFiles = ["**/global.json", "**/Directory.Packages.props",],
                ImportSecrets = [nameof(NugetApiKey),],
-               EnableGitHubToken = true)]
+               EnableGitHubToken = true,
+               WritePermissions = [GitHubActionsPermissions.Actions])]
 internal class Build
 	: NukeBuild,
 	  ICanInitialize,
 	  ICanCompile,
 	  ICanTest,
 	  ICanPublish,
-	  ICanInspectCode,
-	  ICanRelease
+	  ICanInspectCode
 {
 	/// <inheritdoc />
 	[Parameter]
