@@ -1,21 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
-		<OutputType>Exe</OutputType>
-		<EnableGenerateDocumentationFile>true</EnableGenerateDocumentationFile>
-		<NoWarn>CS0649;CS0169;CA1050;CA1822;CA2211;IDE1006</NoWarn>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<NukeRootDirectory>..</NukeRootDirectory>
-		<NukeScriptDirectory>..</NukeScriptDirectory>
-		<NukeTelemetryVersion>1</NukeTelemetryVersion>
-		<IsPackable>false</IsPackable>
-		<Nullable>enable</Nullable>
-		<ImplicitUsings>disable</ImplicitUsings>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<PackageReference Include="Nuke.Common" Version="9.0.4" />
 	</ItemGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<IsPackable>false</IsPackable>
+		<NoWarn>CS0649;CS0169;CA1050;CA1822;CA2211;IDE1006</NoWarn>
+		<NukeRootDirectory>..</NukeRootDirectory>
+		<NukeScriptDirectory>..</NukeScriptDirectory>
+		<NukeTelemetryVersion>1</NukeTelemetryVersion>
+		<Nullable>enable</Nullable>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net9.0</TargetFramework>
+	</PropertyGroup>
 
 </Project>
