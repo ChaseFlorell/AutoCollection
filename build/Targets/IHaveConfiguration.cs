@@ -91,6 +91,13 @@ public interface IHaveConfiguration : INukeBuild
 	/// </summary>
 	string RepoName => "AutoCollection";
 
+	/// <summary>
+	/// Gets the file path to the NuGet package that is generated during the build process.
+	/// The path is constructed using the build artifacts directory, repository name, and the version number.
+	/// </summary>
 	string NugetPackageReference => BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.nupkg";
+
+	/// <summary>
+	/// Gets the file path for the symbol package (.snupkg
 	string SymbolPackageReference => BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.snupkg";
 }
