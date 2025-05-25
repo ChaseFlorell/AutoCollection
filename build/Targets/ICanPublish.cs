@@ -62,8 +62,7 @@ public interface ICanPublish : IHaveConfiguration
 			                          .GitHubClient
 			                          .Git
 			                          .Tag
-			                          .Create(GitHubActions.Instance.RepositoryOwner, RepoName, new NewTag {Tag = $"v{Version}", Message = $"Release version {Version}", Object = GitHubActions.Instance.Sha, Type = TaggedType.Tag})
-			                          .ConfigureAwait(false));
+			                          .Create(GitHubActions.Instance.RepositoryOwner, RepoName, new NewTag {Tag = $"v{Version}", Message = $"Release version {Version}", Object = GitHubActions.Instance.Sha, Type = TaggedType.Tag}));
 
 	/// <summary>
 	/// Represents the target responsible for creating a new GitHub reference
@@ -89,8 +88,7 @@ public interface ICanPublish : IHaveConfiguration
 			                          .GitHubClient
 			                          .Git
 			                          .Reference
-			                          .Create(GitHubActions.Instance.RepositoryOwner, RepoName, new NewReference($"refs/tags/v{Version}", GitHubActions.Instance.Sha))
-			                          .ConfigureAwait(false));
+			                          .Create(GitHubActions.Instance.RepositoryOwner, RepoName, new NewReference($"refs/tags/v{Version}", GitHubActions.Instance.Sha)));
 
 	/// <summary>
 	/// Represents the target responsible for preparing a release by initializing
@@ -142,8 +140,7 @@ public interface ICanPublish : IHaveConfiguration
 			                                    .Release
 			                                    .Create(GitHubActions.Instance.RepositoryOwner,
 			                                            RepoName,
-			                                            NewRelease)
-			                                    .ConfigureAwait(false));
+			                                            NewRelease));
 
 	/// <summary>
 	/// Represents the target responsible for uploading assets to a GitHub release.
@@ -161,6 +158,7 @@ public interface ICanPublish : IHaveConfiguration
 		target => target
 		          .Description("Uploads assets to a GitHub release")
 		          .DependsOn(CreateGitHubRelease)
+		          .DependsOn(PrepareRelease)
 		          .DependsOn(SetGitHubCredentials)
 		          .DependsOn<ICanTest>(x => x.Test)
 		          .DependsOn<ICanInspectCode>(x => x.Inspect)
@@ -179,8 +177,7 @@ public interface ICanPublish : IHaveConfiguration
 			                .GitHubClient
 			                .Repository
 			                .Release
-			                .UploadAsset(Release, assetUpload)
-			                .ConfigureAwait(false);
+			                .UploadAsset(Release, assetUpload);
 		          }).Consumes(CreateGitHubRelease);
 
 	/// <summary>
