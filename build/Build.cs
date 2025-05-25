@@ -3,6 +3,7 @@ using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Git;
 using Nuke.Common.ProjectModel;
+using Octokit;
 
 namespace AutoCollection.Build;
 /// <summary>
@@ -28,7 +29,7 @@ namespace AutoCollection.Build;
 [GitHubActions("main",
                GitHubActionsImage.MacOsLatest,
                OnPushBranches = ["main",],
-               InvokedTargets = [nameof(ICanPublish.Publish),],
+               InvokedTargets = [nameof(ICanPublish.PublishNuget),],
                CacheKeyFiles = ["**/global.json", "**/Directory.Packages.props",],
                ImportSecrets = [nameof(NugetApiKey),],
                EnableGitHubToken = true,
@@ -46,13 +47,23 @@ internal class Build
 	[Secret]
 	public string? GitHubToken { get; }
 
+	/// <inheritdoc />
 	[Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")] public Configuration Configuration { get; set; } = Configuration.Release;
 
+	/// <inheritdoc />
 	[Solution] public Solution? Solution { get; }
 
+	/// <inheritdoc />
 	[GitRepository] public GitRepository? Repository { get; }
 
+	/// <inheritdoc />
 	[Parameter] [Secret] public string? NugetApiKey { get; }
+
+	/// <inheritdoc />
+	public NewRelease? NewRelease { get; set; }
+
+	/// <inheritdoc />
+	public Release? Release { get; set; }
 
 	public static int Main() => Execute<Build>(x => x.Run);
 

@@ -25,12 +25,18 @@
       "type": "string",
       "enum": [
         "Compile",
+        "CreateGitHubReference",
+        "CreateGitHubRelease",
+        "CreateGitHubTag",
         "Initialize",
         "Inspect",
         "InstallTools",
-        "Publish",
+        "PrepareRelease",
+        "PublishNuget",
         "Run",
-        "Test"
+        "SetGitHubCredentials",
+        "Test",
+        "UploadGitHubAsset"
       ]
     },
     "Verbosity": {
