@@ -152,7 +152,7 @@ public interface ICanPublish : IHaveConfiguration
 			                .Repository
 			                .Release
 			                .UploadAsset(Release, assetUpload);
-		          }).Consumes(CreateGitHubRelease);
+		          });
 
 	/// <summary>
 	/// Defines the target for publishing NuGet packages to the NuGet repository.
