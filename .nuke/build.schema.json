@@ -25,7 +25,6 @@
       "type": "string",
       "enum": [
         "Compile",
-        "CreateGitHubReference",
         "CreateGitHubRelease",
         "CreateGitHubTag",
         "Initialize",

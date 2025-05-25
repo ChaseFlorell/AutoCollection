@@ -33,7 +33,7 @@ namespace AutoCollection.Build;
                CacheKeyFiles = ["**/global.json", "**/Directory.Packages.props",],
                ImportSecrets = [nameof(NugetApiKey),],
                EnableGitHubToken = true,
-               WritePermissions = [GitHubActionsPermissions.Actions, GitHubActionsPermissions.Contents,])]
+               WritePermissions = [GitHubActionsPermissions.Actions, GitHubActionsPermissions.Contents, GitHubActionsPermissions.Deployments,])]
 internal class Build
 	: NukeBuild,
 	  ICanInitialize,
@@ -48,16 +48,21 @@ internal class Build
 	public string? GitHubToken { get; }
 
 	/// <inheritdoc />
-	[Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")] public Configuration Configuration { get; set; } = Configuration.Release;
+	[Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
+	public Configuration Configuration { get; set; } = Configuration.Release;
 
 	/// <inheritdoc />
-	[Solution] public Solution? Solution { get; }
+	[Solution]
+	public Solution? Solution { get; }
 
 	/// <inheritdoc />
-	[GitRepository] public GitRepository? Repository { get; }
+	[GitRepository]
+	public GitRepository? Repository { get; }
 
 	/// <inheritdoc />
-	[Parameter] [Secret] public string? NugetApiKey { get; }
+	[Parameter]
+	[Secret]
+	public string? NugetApiKey { get; }
 
 	/// <inheritdoc />
 	public NewRelease? NewRelease { get; set; }
