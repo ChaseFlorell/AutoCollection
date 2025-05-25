@@ -62,33 +62,7 @@ public interface ICanPublish : IHaveConfiguration
 			                          .GitHubClient
 			                          .Git
 			                          .Tag
-			                          .Create(GitHubActions.Instance.RepositoryOwner, RepoName, new NewTag {Tag = $"v{Version}", Message = $"Release version {Version}", Object = GitHubActions.Instance.Sha, Type = TaggedType.Tag}));
-
-	/// <summary>
-	/// Represents the target responsible for creating a new GitHub reference
-	/// associated with the current commit.
-	/// </summary>
-	/// <remarks>
-	/// This target creates a new reference on GitHub, pointing to the commit
-	/// hash specified in the current GitHub Actions context. It ensures the
-	/// creation of a tag reference in the format "v{Version}" by using the
-	/// repository owner, repository name, and SHA of the commit provided by
-	/// the GitHub Actions environment.
-	/// </remarks>
-	Target CreateGitHubReference =>
-		target => target
-		          .Description("Creates a new GitHub reference for the current commit")
-		          .DependsOn(SetGitHubCredentials)
-		          .DependsOn(UploadGitHubAsset)
-		          .DependsOn<ICanTest>(x => x.Test)
-		          .DependsOn<ICanInspectCode>(x => x.Inspect)
-		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
-		          .Executes(async () =>
-			                    await GitHubTasks
-			                          .GitHubClient
-			                          .Git
-			                          .Reference
-			                          .Create(GitHubActions.Instance.RepositoryOwner, RepoName, new NewReference($"refs/tags/v{Version}", GitHubActions.Instance.Sha)));
+			                          .Create(GitHubActions.Instance.RepositoryOwner, RepositoryName, new NewTag {Tag = $"v{Version}", Message = $"Release version {Version}", Object = GitHubActions.Instance.Sha, Type = TaggedType.Tag}));
 
 	/// <summary>
 	/// Represents the target responsible for preparing a release by initializing
@@ -139,7 +113,7 @@ public interface ICanPublish : IHaveConfiguration
 			                                    .Repository
 			                                    .Release
 			                                    .Create(GitHubActions.Instance.RepositoryOwner,
-			                                            RepoName,
+			                                            RepositoryName,
 			                                            NewRelease));
 
 	/// <summary>
@@ -158,7 +132,6 @@ public interface ICanPublish : IHaveConfiguration
 		target => target
 		          .Description("Uploads assets to a GitHub release")
 		          .DependsOn(CreateGitHubRelease)
-		          .DependsOn(PrepareRelease)
 		          .DependsOn(SetGitHubCredentials)
 		          .DependsOn<ICanTest>(x => x.Test)
 		          .DependsOn<ICanInspectCode>(x => x.Inspect)
@@ -194,7 +167,6 @@ public interface ICanPublish : IHaveConfiguration
 		target => target
 		          .Description("Publishes NuGet packages to the official NuGet repository")
 		          .DependsOn(CreateGitHubTag)
-		          .DependsOn(CreateGitHubReference)
 		          .DependsOn(UploadGitHubAsset)
 		          .DependsOn<ICanTest>(x => x.Test)
 		          .DependsOn<ICanInspectCode>(x => x.Inspect)

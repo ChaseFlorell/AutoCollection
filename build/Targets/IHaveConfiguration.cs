@@ -89,18 +89,18 @@ public interface IHaveConfiguration : INukeBuild
 	/// Gets the name of the repository as a constant value.
 	/// This property defines the repository name used for organizational or CI/CD purposes.
 	/// </summary>
-	string RepoName => "AutoCollection";
+	string RepositoryName => "AutoCollection";
 
 	/// <summary>
 	/// Gets the file path to the NuGet package that is generated during the build process.
 	/// The path is constructed using the build artifacts directory, repository name, and the version number.
 	/// </summary>
-	string NugetPackageReference => BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.nupkg";
+	string NugetPackageReference => BuildArtifactsDirectory / RepositoryName / $"AutoCollection.{Version}.nupkg";
 
 	/// <summary>
 	/// Gets the file path for the symbol package (.snupkg) used in the NuGet publishing process.
 	/// This file contains debugging symbols and is typically uploaded to a symbol server
 	/// to assist in debugging applications that depend on the published package.
 	/// </summary>
-	string SymbolPackageReference => BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.snupkg";
+	string SymbolPackageReference => BuildArtifactsDirectory / RepositoryName / $"AutoCollection.{Version}.snupkg";
 }
