@@ -64,11 +64,9 @@ internal class Build
 	[Secret]
 	public string? NugetApiKey { get; }
 
-	/// <inheritdoc />
-	public NewRelease? NewRelease { get; set; }
+	internal static NewRelease? NewRelease { get; set; }
 
-	/// <inheritdoc />
-	public Release? Release { get; set; }
+	internal static Release? Release { get; set; }
 
 	public static int Main() => Execute<Build>(x => x.Run);
 

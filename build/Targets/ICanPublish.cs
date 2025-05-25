@@ -83,7 +83,7 @@ public interface ICanPublish : IHaveConfiguration
 		          .DependsOn<ICanTest>(x => x.Test)
 		          .DependsOn<ICanInspectCode>(x => x.Inspect)
 		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
-		          .Executes(() => NewRelease = new NewRelease($"v{Version}")
+		          .Executes(() => Build.NewRelease = new NewRelease($"v{Version}")
 		          {
 			          Name = $"Release v{Version}",
 			          Body = $"Release of version {Version}",
@@ -105,6 +105,7 @@ public interface ICanPublish : IHaveConfiguration
 		target => target
 		          .Description("Creates a new GitHub release for the current version of the project")
 		          .DependsOn(PrepareRelease)
+		          .DependsOn(SetGitHubCredentials)
 		          .DependsOn<ICanTest>(x => x.Test)
 		          .DependsOn<ICanInspectCode>(x => x.Inspect)
 		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
@@ -114,8 +115,8 @@ public interface ICanPublish : IHaveConfiguration
 		                          .Release
 		                          .Create(GitHubActions.Instance.RepositoryOwner,
 		                                  RepositoryName,
-		                                  NewRelease)
-		                          .ContinueWith(task => Release = task.Result, TaskScheduler.Default));
+		                                  Build.NewRelease)
+		                          .ContinueWith(task => Build.Release = task.Result, TaskScheduler.Default));
 
 	/// <summary>
 	/// Represents the target responsible for uploading assets to a GitHub release.
@@ -151,7 +152,7 @@ public interface ICanPublish : IHaveConfiguration
 			                .GitHubClient
 			                .Repository
 			                .Release
-			                .UploadAsset(Release, assetUpload);
+			                .UploadAsset(Build.Release, assetUpload);
 		          });
 
 	/// <summary>
@@ -178,25 +179,4 @@ public interface ICanPublish : IHaveConfiguration
 		                                                             .SetSource("https://api.nuget.org/v3/index.json")
 		                                                             .SetTargetPath(NugetPackageReference)
 		                                                             .SetSymbolSource(SymbolPackageReference)));
-
-	/// <summary>
-	/// Represents the metadata and configuration for creating a new GitHub release.
-	/// </summary>
-	/// <remarks>
-	/// This property is used to define the details of a new release, including its version, title, and description.
-	/// It also specifies additional attributes such as whether the release is a draft, a pre-release, or the target commit SHA.
-	/// The property is primarily used during the execution of tasks that involve creating and publishing new GitHub releases.
-	/// </remarks>
-	protected internal NewRelease? NewRelease { get; set; }
-
-	/// <summary>
-	/// Represents the GitHub release associated with the current project version.
-	/// </summary>
-	/// <remarks>
-	/// This property holds the release object created within the GitHub repository
-	/// for a specific version of the project. It is set during the execution of the
-	/// release process, which includes creating the release, uploading assets,
-	/// and associating metadata such as tags and descriptions.
-	/// </remarks>
-	protected internal Release? Release { get; set; }
 }
