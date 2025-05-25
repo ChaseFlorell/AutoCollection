@@ -84,4 +84,10 @@ public interface IHaveConfiguration : INukeBuild
 	///     or 1 if not running in GitHub Actions.
 	/// </summary>
 	string Version => $"0.0.{GitHubActions.Instance?.RunNumber ?? 1}";
+
+	/// <summary>
+	/// Gets the name of the repository as a constant value.
+	/// This property defines the repository name used for organizational or CI/CD purposes.
+	/// </summary>
+	string RepoName => "AutoCollection";
 }
