@@ -90,4 +90,7 @@ public interface IHaveConfiguration : INukeBuild
 	/// This property defines the repository name used for organizational or CI/CD purposes.
 	/// </summary>
 	string RepoName => "AutoCollection";
+
+	string NugetPackageReference => BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.nupkg";
+	string SymbolPackageReference => BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.snupkg";
 }
