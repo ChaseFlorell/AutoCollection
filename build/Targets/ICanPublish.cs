@@ -1,9 +1,8 @@
-using System.Linq;
+using System.IO;
 using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Git;
 using Nuke.Common.Tools.DotNet;
-using Nuke.Common.Tools.Git;
 using Nuke.Common.Tools.GitHub;
 using Octokit;
 
@@ -27,52 +26,80 @@ namespace AutoCollection.Build.Targets;
 /// </dependencies>
 public interface ICanPublish : IHaveConfiguration
 {
+#pragma warning disable CA1506
 	/// <summary>
-	///     Defines the target responsible for publishing the NuGet package.
+	/// Represents the target responsible for publishing NuGet packages
+	/// and creating GitHub release tags.
 	/// </summary>
 	/// <remarks>
-	///     The <c>Publish</c> target is dependent on the execution of the <c>Test</c> target from the <c>ICanTest</c> interface.
-	///     It is executed only when certain conditions are met:
-	///     - The repository is on the main or master branch.
-	///     - The process is running in a GitHub Actions context.
-	///     In case the target is skipped, dependent actions will also be skipped following the defined dependency behavior.
-	///     When executed, it publishes the NuGet package to the NuGet registry, leveraging the provided API key and version information.
+	/// The Publish target depends on the Test and Inspect targets.
+	/// It ensures publishing only occurs under specific conditions,
+	/// such as being on the main or master branch and when triggered
+	/// by GitHub Actions. It performs the following actions:
+	/// 1. Pushes the NuGet package to the NuGet repository.
+	/// 2. Sets up GitHub client authentication using GitHub Actions token.
+	/// 3. Creates a new GitHub tag and release for the current version of the project.
 	/// </remarks>
 	Target Publish =>
-		d => d
-		     .Description("Publish Nuget")
-		     .DependsOn<ICanTest>(x => x.Test)
-		     .DependsOn<ICanInspectCode>(x => x.Inspect)
-		     .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
-		     .WhenSkipped(DependencyBehavior.Skip)
-		     .Executes(() => DotNetTasks.DotNetNuGetPush(cfg => cfg
-		                                                        .SetApiKey(NugetApiKey)
-		                                                        .SetSource("https://api.nuget.org/v3/index.json")
-		                                                        .SetTargetPath(BuildArtifactsDirectory / "AutoCollection" / $"AutoCollection.{Version}.nupkg")
-		                                                        .SetSymbolSource(BuildArtifactsDirectory / "AutoCollection" / $"AutoCollection.{Version}.snupkg")))
-		     .Executes(async () =>
-		     {
-			     GitHubTasks.GitHubClient.Credentials = new Credentials(GitHubActions.Instance?.Token);
+#pragma warning restore CA1506
+#pragma warning disable CA1506
+		target => target
+		          .Description("Publish Nuget")
+		          .DependsOn<ICanTest>(x => x.Test)
+		          .DependsOn<ICanInspectCode>(x => x.Inspect)
+		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
+		          .WhenSkipped(DependencyBehavior.Skip)
+		          .Executes(() => DotNetTasks.DotNetNuGetPush(cfg => cfg
+		                                                             .SetApiKey(NugetApiKey)
+		                                                             .SetSource("https://api.nuget.org/v3/index.json")
+		                                                             .SetTargetPath(BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.nupkg")
+		                                                             .SetSymbolSource(BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.snupkg")))
+		          .Executes(() => GitHubTasks.GitHubClient.Credentials = new Credentials(GitHubActions.Instance.Token))
+		          .Executes(async () => await GitHubTasks
+		                                      .GitHubClient
+		                                      .Git
+		                                      .Tag
+		                                      .Create(GitHubActions.Instance.RepositoryOwner, RepoName, new NewTag {Tag = $"v{Version}", Message = $"Release version {Version}", Object = GitHubActions.Instance.Sha, Type = TaggedType.Tag})
+		                                      .ConfigureAwait(false))
+		          .Executes(async () => await GitHubTasks
+		                                      .GitHubClient
+		                                      .Git
+		                                      .Reference
+		                                      .Create(GitHubActions.Instance.RepositoryOwner, "AutoCollection", new NewReference($"refs/tags/v{Version}", GitHubActions.Instance.Sha)))
+		          .Executes(async () =>
+		          {
+			          var release = await GitHubTasks
+			                              .GitHubClient
+			                              .Repository
+			                              .Release
+			                              .Create(GitHubActions.Instance.RepositoryOwner,
+			                                      RepoName,
+			                                      new NewRelease($"v{Version}")
+			                                      {
+				                                      Name = $"Release v{Version}",
+				                                      Body = $"Release of version {Version}",
+				                                      Draft = false,
+				                                      Prerelease = false,
+				                                      TargetCommitish = GitHubActions.Instance.Sha,
+			                                      })
+			                              .ConfigureAwait(false);
 
-			     // Get the SHA of the current commit
-			     var sha = GitTasks.Git("rev-parse HEAD", logOutput: false, logInvocation: false)
-			                       .FirstOrDefault().Text;
+			          // Optionally, upload the NuGet package as an asset to the GitHub release
+			          var packagePath = BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.nupkg";
+			          await using var packageStream = File.OpenRead(packagePath);
+			          var assetUpload = new ReleaseAssetUpload
+			          {
+				          FileName = Path.GetFileName(packagePath),
+				          ContentType = "application/octet-stream",
+				          RawData = packageStream,
+			          };
 
-			     // Create a tag and reference object
-			     var tagObject = new NewTag {Tag = $"v{Version}", Message = $"Release version {Version}", Object = sha, Type = TaggedType.Tag};
-			     var tagRef = new NewReference($"refs/tags/v{Version}", sha);
-
-			     await GitHubTasks
-			           .GitHubClient
-			           .Git
-			           .Tag
-			           .Create("ChaseFlorell", "AutoCollection", tagObject)
-			           .ConfigureAwait(false);
-
-			     await GitHubTasks
-			           .GitHubClient
-			           .Git
-			           .Reference
-			           .Create("ChaseFlorell", "AutoCollection", tagRef);
-		     });
+			          await GitHubTasks
+			                .GitHubClient
+			                .Repository
+			                .Release
+			                .UploadAsset(release, assetUpload)
+			                .ConfigureAwait(false);
+		          });
+#pragma warning restore CA1506
 }
