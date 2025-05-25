@@ -151,14 +151,14 @@ public interface ICanPublish : IHaveConfiguration
 		target => target
 		          .Description("Uploads assets to a GitHub release")
 		          .DependsOn(CreateGitHubRelease)
+		          .DependsOn(SetGitHubCredentials)
 		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
 		          .Executes(async () =>
 		          {
-			          var packagePath = BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.nupkg";
-			          await using var packageStream = File.OpenRead(packagePath);
+			          await using var packageStream = File.OpenRead(NugetPackageReference);
 			          var assetUpload = new ReleaseAssetUpload
 			          {
-				          FileName = Path.GetFileName(packagePath),
+				          FileName = Path.GetFileName(NugetPackageReference),
 				          ContentType = "application/octet-stream",
 				          RawData = packageStream,
 			          };
@@ -194,8 +194,8 @@ public interface ICanPublish : IHaveConfiguration
 		          .Executes(() => DotNetTasks.DotNetNuGetPush(cfg => cfg
 		                                                             .SetApiKey(NugetApiKey)
 		                                                             .SetSource("https://api.nuget.org/v3/index.json")
-		                                                             .SetTargetPath(BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.nupkg")
-		                                                             .SetSymbolSource(BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.snupkg")));
+		                                                             .SetTargetPath(NugetPackageReference)
+		                                                             .SetSymbolSource(SymbolPackageReference)));
 
 	/// <summary>
 	/// Represents the metadata and configuration for creating a new GitHub release.
