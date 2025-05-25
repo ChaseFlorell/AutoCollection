@@ -98,6 +98,9 @@ public interface IHaveConfiguration : INukeBuild
 	string NugetPackageReference => BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.nupkg";
 
 	/// <summary>
-	/// Gets the file path for the symbol package (.snupkg
+	/// Gets the file path for the symbol package (.snupkg) used in the NuGet publishing process.
+	/// This file contains debugging symbols and is typically uploaded to a symbol server
+	/// to assist in debugging applications that depend on the published package.
+	/// </summary>
 	string SymbolPackageReference => BuildArtifactsDirectory / RepoName / $"AutoCollection.{Version}.snupkg";
 }
