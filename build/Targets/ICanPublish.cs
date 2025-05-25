@@ -1,4 +1,5 @@
 using System.IO;
+using System.Threading.Tasks;
 using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Git;
@@ -107,14 +108,14 @@ public interface ICanPublish : IHaveConfiguration
 		          .DependsOn<ICanTest>(x => x.Test)
 		          .DependsOn<ICanInspectCode>(x => x.Inspect)
 		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
-		          .Executes(async () =>
-			                    Release = await GitHubTasks
-			                                    .GitHubClient
-			                                    .Repository
-			                                    .Release
-			                                    .Create(GitHubActions.Instance.RepositoryOwner,
-			                                            RepositoryName,
-			                                            NewRelease));
+		          .Executes(() => GitHubTasks
+		                          .GitHubClient
+		                          .Repository
+		                          .Release
+		                          .Create(GitHubActions.Instance.RepositoryOwner,
+		                                  RepositoryName,
+		                                  NewRelease)
+		                          .ContinueWith(task => Release = task.Result, TaskScheduler.Default));
 
 	/// <summary>
 	/// Represents the target responsible for uploading assets to a GitHub release.
