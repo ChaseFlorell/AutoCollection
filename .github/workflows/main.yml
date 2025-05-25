@@ -23,6 +23,7 @@ on:
 
 permissions:
   actions: write
+  contents: write
 
 jobs:
   macos-latest:
