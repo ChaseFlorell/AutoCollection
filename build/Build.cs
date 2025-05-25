@@ -32,7 +32,7 @@ namespace AutoCollection.Build;
                CacheKeyFiles = ["**/global.json", "**/Directory.Packages.props",],
                ImportSecrets = [nameof(NugetApiKey),],
                EnableGitHubToken = true,
-               WritePermissions = [GitHubActionsPermissions.Actions])]
+               WritePermissions = [GitHubActionsPermissions.Actions, GitHubActionsPermissions.Contents,])]
 internal class Build
 	: NukeBuild,
 	  ICanInitialize,
