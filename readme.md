@@ -1,8 +1,8 @@
 # AutoCollection
 
-| Actions                                                                                                                                                                                     | NuGet                                                                                                         |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| [![continuous](https://github.com/ChaseFlorell/AutoCollection/actions/workflows/continuous.yml/badge.svg)](https://github.com/ChaseFlorell/AutoCollection/actions/workflows/continuous.yml) | [![NuGet](https://img.shields.io/nuget/v/AutoCollection.svg)](https://www.nuget.org/packages/AutoCollection/) |
+| Actions                                                                                                                                                                         | NuGet                                                                                                         |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| [![continuous](https://github.com/ChaseFlorell/AutoCollection/actions/workflows/main.yml/badge.svg)](https://github.com/ChaseFlorell/AutoCollection/actions/workflows/main.yml) | [![NuGet](https://img.shields.io/nuget/v/AutoCollection.svg)](https://www.nuget.org/packages/AutoCollection/) |
 
 A lightweight source generator library that automatically creates read-only collection wrappers for your types using the `GenerateReadOnlyList` attribute.
 
@@ -14,7 +14,7 @@ AutoCollection eliminates boilerplate code by generating `IReadOnlyList<T>` impl
 
 Install the AutoCollection package via NuGet:
 
-```bash
+```bash~~~~
 dotnet add package AutoCollection
 ```
 
