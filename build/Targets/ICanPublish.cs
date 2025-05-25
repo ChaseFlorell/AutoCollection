@@ -54,6 +54,8 @@ public interface ICanPublish : IHaveConfiguration
 		          .Description("Creates a new GitHub tag for the current version of the project")
 		          .DependsOn(SetGitHubCredentials)
 		          .DependsOn(UploadGitHubAsset)
+		          .DependsOn<ICanTest>(x => x.Test)
+		          .DependsOn<ICanInspectCode>(x => x.Inspect)
 		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
 		          .Executes(async () =>
 			                    await GitHubTasks
@@ -79,6 +81,8 @@ public interface ICanPublish : IHaveConfiguration
 		          .Description("Creates a new GitHub reference for the current commit")
 		          .DependsOn(SetGitHubCredentials)
 		          .DependsOn(UploadGitHubAsset)
+		          .DependsOn<ICanTest>(x => x.Test)
+		          .DependsOn<ICanInspectCode>(x => x.Inspect)
 		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
 		          .Executes(async () =>
 			                    await GitHubTasks
@@ -103,6 +107,8 @@ public interface ICanPublish : IHaveConfiguration
 	Target PrepareRelease =>
 		target => target
 		          .Description("Prepare a new GitHub release for the current version of the project")
+		          .DependsOn<ICanTest>(x => x.Test)
+		          .DependsOn<ICanInspectCode>(x => x.Inspect)
 		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
 		          .Executes(() => NewRelease = new NewRelease($"v{Version}")
 		          {
@@ -126,6 +132,8 @@ public interface ICanPublish : IHaveConfiguration
 		target => target
 		          .Description("Creates a new GitHub release for the current version of the project")
 		          .DependsOn(PrepareRelease)
+		          .DependsOn<ICanTest>(x => x.Test)
+		          .DependsOn<ICanInspectCode>(x => x.Inspect)
 		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
 		          .Executes(async () =>
 			                    Release = await GitHubTasks
@@ -154,7 +162,8 @@ public interface ICanPublish : IHaveConfiguration
 		          .Description("Uploads assets to a GitHub release")
 		          .DependsOn(CreateGitHubRelease)
 		          .DependsOn(SetGitHubCredentials)
-		          .DependsOn<ICanCompile>(x => x.Compile)
+		          .DependsOn<ICanTest>(x => x.Test)
+		          .DependsOn<ICanInspectCode>(x => x.Inspect)
 		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
 		          .Executes(async () =>
 		          {
