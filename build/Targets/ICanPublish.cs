@@ -53,6 +53,7 @@ public interface ICanPublish : IHaveConfiguration
 		target => target
 		          .Description("Creates a new GitHub tag for the current version of the project")
 		          .DependsOn(SetGitHubCredentials)
+		          .DependsOn(UploadGitHubAsset)
 		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
 		          .Executes(async () =>
 			                    await GitHubTasks
@@ -77,6 +78,7 @@ public interface ICanPublish : IHaveConfiguration
 		target => target
 		          .Description("Creates a new GitHub reference for the current commit")
 		          .DependsOn(SetGitHubCredentials)
+		          .DependsOn(UploadGitHubAsset)
 		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
 		          .Executes(async () =>
 			                    await GitHubTasks
@@ -152,6 +154,7 @@ public interface ICanPublish : IHaveConfiguration
 		          .Description("Uploads assets to a GitHub release")
 		          .DependsOn(CreateGitHubRelease)
 		          .DependsOn(SetGitHubCredentials)
+		          .DependsOn<ICanCompile>(x => x.Compile)
 		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
 		          .Executes(async () =>
 		          {
