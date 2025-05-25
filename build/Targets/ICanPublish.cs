@@ -109,14 +109,14 @@ public interface ICanPublish : IHaveConfiguration
 		          .DependsOn<ICanTest>(x => x.Test)
 		          .DependsOn<ICanInspectCode>(x => x.Inspect)
 		          .OnlyWhenDynamic(() => Repository.IsOnMainOrMasterBranch() && GitHubActions.Instance is {})
-		          .Executes(async () => Build.Release =
-			                    await GitHubTasks
-			                          .GitHubClient
-			                          .Repository
-			                          .Release
-			                          .Create(GitHubActions.Instance.RepositoryOwner,
-			                                  RepositoryName,
-			                                  Build.NewRelease));
+		          .Executes(() => new Task(() => Build.Release =
+			                                   GitHubTasks
+				                                   .GitHubClient
+				                                   .Repository
+				                                   .Release
+				                                   .Create(GitHubActions.Instance.RepositoryOwner,
+				                                           RepositoryName,
+				                                           Build.NewRelease).Result));
 
 	/// <summary>
 	/// Represents the target responsible for uploading assets to a GitHub release.
