@@ -1,5 +1,4 @@
 using System.IO;
-using System.Threading.Tasks;
 using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Git;
